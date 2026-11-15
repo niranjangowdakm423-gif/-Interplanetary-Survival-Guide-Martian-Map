@@ -925,14 +925,17 @@ function renderProfileChart() {
   const prof = state.routeResult.telemetry.profile;
   if (prof.length < 2) return;
 
-  const padL = 46, padR = 46, padT = 14, padB = 22;
+  const padL = 48, padR = 48, padT = 20, padB = 22;
   const plotW = W - padL - padR;
   const plotH = H - padT - padB;
 
   let primarySeries = [];
   let secondarySeries = [];
-  let primaryColor = "#18e299";
-  let secondaryColor = "#ff5e2b";
+  let primaryColor = "#BAEB5B";
+  let primaryFill = "rgba(186, 235, 91, 0.14)";
+  let secondaryColor = "#ff9f43";
+  let primaryLabel = "Elevation (m)";
+  let secondaryLabel = "Slope (°)";
   let unitLeft = "m";
   let unitRight = "°";
 
@@ -940,21 +943,30 @@ function renderProfileChart() {
     primarySeries = prof.map((p) => p.elevation_m);
     secondarySeries = prof.map((p) => p.slope_deg);
     primaryColor = "#BAEB5B";
-    secondaryColor = "#d4f27a";
+    primaryFill = "rgba(186, 235, 91, 0.14)";
+    secondaryColor = "#ff9f43";
+    primaryLabel = "Elevation (m)";
+    secondaryLabel = "Slope (°)";
     unitLeft = "m";
     unitRight = "°";
   } else if (state.profileTab === "metabolic_o2") {
     primarySeries = prof.map((p) => p.metabolic_watts);
     secondarySeries = prof.map((p) => p.cum_o2_l);
-    primaryColor = "#BAEB5B";
-    secondaryColor = "#d4f27a";
+    primaryColor = "#ffab2e";
+    primaryFill = "rgba(255, 171, 46, 0.14)";
+    secondaryColor = "#27d7ff";
+    primaryLabel = "Energy / Metabolic (W)";
+    secondaryLabel = "Cumulative O₂ (L)";
     unitLeft = "W";
     unitRight = "L O₂";
   } else {
     primarySeries = prof.map((p) => p.radiation_uSv_hr);
     secondarySeries = prof.map((p) => p.comm_los_pct);
     primaryColor = "#ff4757";
+    primaryFill = "rgba(255, 71, 87, 0.14)";
     secondaryColor = "#BAEB5B";
+    primaryLabel = "Radiation (µSv/h)";
+    secondaryLabel = "Comm LOS (%)";
     unitLeft = "µSv/h";
     unitRight = "%";
   }
@@ -985,13 +997,13 @@ function renderProfileChart() {
     else pctx.lineTo(x, y);
   });
   pctx.strokeStyle = primaryColor;
-  pctx.lineWidth = 2.2;
+  pctx.lineWidth = 2.4;
   pctx.stroke();
 
   pctx.lineTo(padL + plotW, padT + plotH);
   pctx.lineTo(padL, padT + plotH);
   pctx.closePath();
-  pctx.fillStyle = "rgba(24, 226, 153, 0.12)";
+  pctx.fillStyle = primaryFill;
   pctx.fill();
   pctx.restore();
 
@@ -1005,7 +1017,7 @@ function renderProfileChart() {
     else pctx.lineTo(x, y);
   });
   pctx.strokeStyle = secondaryColor;
-  pctx.lineWidth = 1.8;
+  pctx.lineWidth = 2.0;
   pctx.stroke();
   pctx.restore();
 
@@ -1014,7 +1026,7 @@ function renderProfileChart() {
     const yThresh = padT + plotH - (state.maxSlopeDeg / max2) * plotH;
     if (yThresh >= padT && yThresh <= padT + plotH) {
       pctx.save();
-      pctx.strokeStyle = "rgba(255, 51, 85, 0.65)";
+      pctx.strokeStyle = "rgba(255, 71, 87, 0.75)";
       pctx.setLineDash([4, 4]);
       pctx.beginPath();
       pctx.moveTo(padL, yThresh);
@@ -1023,6 +1035,28 @@ function renderProfileChart() {
       pctx.restore();
     }
   }
+
+  // Top inline series legend
+  pctx.save();
+  pctx.font = "600 10px 'JetBrains Mono', monospace";
+  const legY = 11;
+  const legStartX = padL + 8;
+
+  pctx.fillStyle = primaryColor;
+  pctx.fillRect(legStartX, legY - 6, 12, 3);
+  pctx.fillText(primaryLabel, legStartX + 16, legY);
+
+  const secStartX = legStartX + 16 + pctx.measureText(primaryLabel).width + 20;
+  pctx.fillStyle = secondaryColor;
+  pctx.fillRect(secStartX, legY - 6, 12, 3);
+  pctx.fillText(secondaryLabel, secStartX + 16, legY);
+
+  if (state.profileTab === "elev_slope") {
+    const limStartX = secStartX + 16 + pctx.measureText(secondaryLabel).width + 20;
+    pctx.fillStyle = "#ff4757";
+    pctx.fillText(`-- Max Safe Slope (${state.maxSlopeDeg}°)`, limStartX, legY);
+  }
+  pctx.restore();
 
   // Draw active astronaut step vertical playhead
   const astroIdx = Math.min(state.simStepIndex, prof.length - 1);

@@ -1118,9 +1118,9 @@ input[type="range"] {
   transition: width 0.25s ease;
 }
 
-.fill-o2 { background: var(--accent-lime); box-shadow: 0 0 6px rgba(186, 235, 91, 0.4); }
-.fill-bat { background: linear-gradient(90deg, #d4f27a, var(--accent-lime)); }
-.fill-kcal { background: linear-gradient(90deg, #41433B, var(--accent-lime)); }
+.fill-o2 { background: linear-gradient(90deg, #0284c7, #27d7ff); box-shadow: 0 0 6px rgba(39, 215, 255, 0.4); }
+.fill-bat { background: linear-gradient(90deg, #8ab833, var(--accent-lime)); box-shadow: 0 0 6px rgba(186, 235, 91, 0.35); }
+.fill-kcal { background: linear-gradient(90deg, #d97706, #ffab2e); box-shadow: 0 0 6px rgba(255, 171, 46, 0.35); }
 
 .comparison-callout {
   background: rgba(186, 235, 91, 0.08);
