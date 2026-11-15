@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARES-NAV — Interplanetary Survival Guide: Martian Map</title>
+  <meta name="description" content="ARES-NAV is a Martian exploration and EVA mission planning system using real NASA datasets. Plan safe routes, monitor astronaut resources, and explore Martian terrain." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="p0_styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       MISSION SETUP WIZARD (shown to new users)
+  ═══════════════════════════════════════════════════════════════ -->
+  <div id="wizard-overlay" class="wizard-overlay" role="dialog" aria-modal="true" aria-label="Mission Setup Wizard">
+    <div class="wizard-card">
+      <div class="wizard-header">
+        <div class="nasa-badge" style="font-size:11px;">NASA // SPACE APPS</div>
+        <div class="wizard-logo">
+          <span class="wizard-title">ARES-NAV</span>
+          <span class="wizard-subtitle">Interplanetary Survival Guide</span>
+        </div>
+      </div>
+
+      <!-- Step 1: Welcome -->
+      <div class="wizard-step active" id="wiz-step-1">
+        <div class="wizard-mars-icon">🔴</div>
+        <h2 class="wizard-heading">Welcome to ARES-NAV</h2>
+        <p class="wizard-desc">ARES-NAV uses real NASA planetary data to help plan safe human exploration missions on Mars. Choose what you'd like to do:</p>
+        <div class="wizard-choices">
+          <button class="wizard-choice" id="wiz-choice-plan" data-next="2">
+            <span class="wiz-icon">🗺️</span>
+            <strong>Plan a Mars Expedition</strong>
+            <span>Calculate a safe EVA route between mission targets</span>
+          </button>
+          <button class="wizard-choice" id="wiz-choice-science" data-next="2">
+            <span class="wiz-icon">🔬</span>
+            <strong>Explore Scientific Locations</strong>
+            <span>Discover mineralogy, water ice and geological targets</span>
+          </button>
+          <button class="wizard-choice" id="wiz-choice-terrain" data-next="2">
+            <span class="wiz-icon">⛰️</span>
+            <strong>Examine Martian Terrain & Data</strong>
+            <span>Browse NASA satellite maps and elevation datasets</span>
+          </button>
+          <button class="wizard-choice" id="wiz-choice-habitat" data-next="habitat">
+            <span class="wiz-icon">🏠</span>
+            <strong>Habitat Location Analysis</strong>
+            <span class="badge-soon" style="background:rgba(16,185,129,0.2);color:#18e299;border-color:#18e299;">LIVE IN P2.2</span>
+            <span>Evaluate candidate sites for future Martian habitats</span>
+          </button>
+          <button class="wizard-choice" id="wiz-choice-learn" data-next="learn">
+            <span class="wiz-icon">📚</span>
+            <strong>Learn How ARES-NAV Works</strong>
+            <span>Start the interactive tutorial</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Mode selection -->
+      <div class="wizard-step" id="wiz-step-2">
+        <h2 class="wizard-heading">Choose Your Experience Level</h2>
+        <p class="wizard-desc">You can switch between modes at any time using the toggle in the top bar.</p>
+        <div class="wizard-modes">
+          <button class="wizard-mode-btn" id="wiz-mode-beginner" data-mode="beginner">
+            <span class="wiz-icon">🌱</span>
+            <strong>Beginner Mode</strong>
+            <ul>
+              <li>Simplified controls and plain language</li>
+              <li>Explanations for every metric</li>
+              <li>Guided mission planning</li>
+              <li>Important warnings shown clearly</li>
+            </ul>
+            <span class="mode-badge mode-beginner-badge">Recommended for first-time users</span>
+          </button>
+          <button class="wizard-mode-btn" id="wiz-mode-expert" data-mode="expert">
+            <span class="wiz-icon">⚙️</span>
+            <strong>Expert Mode</strong>
+            <ul>
+              <li>All NASA instrument abbreviations</li>
+              <li>Full layer controls and advanced parameters</li>
+              <li>Complete telemetry and scientific data</li>
+              <li>All mission planning configuration</li>
+            </ul>
+            <span class="mode-badge mode-expert-badge">For mission planners and scientists</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Habitat Coming Soon -->
+      <div class="wizard-step" id="wiz-step-habitat">
+        <div class="wizard-mars-icon">🏠</div>
+        <h2 class="wizard-heading">Habitat Location Analysis</h2>
+        <div class="coming-soon-box">
+          <span class="coming-soon-label">PLANNED FOR P1</span>
+          <p>The habitat suitability module will analyze candidate Martian sites for:</p>
+          <ul>
+            <li>Radiation shielding from terrain and regolith depth</li>
+            <li>Proximity to ISRU water/ice resources (from SHARAD/CRISM)</li>
+            <li>Terrain stability and slope safety</li>
+            <li>UHF communication coverage</li>
+            <li>Thermal stability across Martian seasons</li>
+          </ul>
+          <p style="margin-top:12px; color: var(--cyan-hud);">In the meantime, you can explore candidate sites using the existing terrain and resource layers.</p>
+        </div>
+        <button class="wizard-btn-primary" id="wiz-habitat-continue">Continue to Main App →</button>
+      </div>
+
+      <!-- Learn Mode -->
+      <div class="wizard-step" id="wiz-step-learn">
+        <div class="wizard-mars-icon">📚</div>
+        <h2 class="wizard-heading">Interactive Tutorial</h2>
+        <p class="wizard-desc">The tutorial walks you through 9 steps, covering everything from selecting a Martian region to running a complete EVA simulation. It takes about 5 minutes.</p>
+        <div class="wizard-learn-options">
+          <button class="wizard-btn-primary" id="wiz-start-tutorial">Start Interactive Tutorial</button>
+          <button class="wizard-btn-secondary" id="wiz-open-glossary">Open Mars Science Glossary</button>
+          <button class="wizard-btn-secondary" id="wiz-skip-to-app">Skip to Main Application</button>
+        </div>
+      </div>
+
+      <div class="wizard-footer">
+        <button class="wizard-btn-link" id="wiz-skip-wizard">Skip setup — take me to the app</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       TUTORIAL OVERLAY
+  ═══════════════════════════════════════════════════════════════ -->
+  <div id="tutorial-overlay" class="tutorial-overlay hidden" role="dialog" aria-modal="true" aria-label="Tutorial">
+    <div class="tutorial-backdrop"></div>
+    <div class="tutorial-panel" id="tutorial-panel">
+      <div class="tutorial-header">
+        <span class="tutorial-step-badge" id="tut-step-badge">Step 1 of 9</span>
+        <button class="tutorial-close-btn" id="tut-close" aria-label="Close tutorial">✕</button>
+      </div>
+      <div class="tutorial-icon" id="tut-icon">🚀</div>
+      <h3 class="tutorial-title" id="tut-title">Introduction to ARES-NAV</h3>
+      <p class="tutorial-body" id="tut-body">Loading...</p>
+      <div class="tutorial-nav">
+        <button class="tutorial-nav-btn" id="tut-prev" disabled>← Previous</button>
+        <div class="tutorial-dots" id="tut-dots"></div>
+        <button class="tutorial-nav-btn tutorial-nav-next" id="tut-next">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       KNOWLEDGE CENTRE MODAL
+  ═══════════════════════════════════════════════════════════════ -->
+  <div id="knowledge-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-label="Mars Science Glossary">
+    <div class="modal-card modal-wide">
+      <div class="modal-header">
+        <div>
+          <span class="nasa-badge">MARS SCIENCE KNOWLEDGE CENTRE</span>
+          <h2 style="margin-top:6px;">Scientific Terms & Concepts</h2>
+        </div>
+        <button id="btn-close-knowledge" class="btn-close" aria-label="Close">✕</button>
+      </div>
+      <div class="knowledge-layout">
+        <nav class="knowledge-nav" id="knowledge-nav" role="navigation" aria-label="Glossary terms"></nav>
+        <div class="knowledge-content" id="knowledge-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       DATA EXPLORER MODAL
+  ═══════════════════════════════════════════════════════════════ -->
+  <div id="data-explorer-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-label="Mars Data Explorer">
+    <div class="modal-card modal-wide">
+      <div class="modal-header">
+        <div>
+          <span class="nasa-badge">MARS DATA EXPLORER</span>
+          <h2 style="margin-top:6px;">NASA Datasets & User Observations</h2>
+        </div>
+        <button id="btn-close-data-explorer" class="btn-close" aria-label="Close">✕</button>
+      </div>
+
+      <div class="data-explorer-tabs" role="tablist">
+        <button class="dex-tab active" data-tab="nasa" role="tab" id="tab-nasa-datasets" aria-selected="true" aria-controls="dex-panel-nasa">NASA Datasets</button>
+        <button class="dex-tab" data-tab="upload" role="tab" id="tab-upload" aria-selected="false" aria-controls="dex-panel-upload">Upload Observations</button>
+        <button class="dex-tab" data-tab="my-data" role="tab" id="tab-my-data" aria-selected="false" aria-controls="dex-panel-my-data">My Datasets <span class="dex-count-badge" id="my-data-count">0</span></button>
+      </div>
+
+      <!-- NASA DATASETS PANEL -->
+      <div class="dex-panel active" id="dex-panel-nasa" role="tabpanel" aria-labelledby="tab-nasa-datasets">
+        <div class="dex-category-filter">
+          <button class="dex-filter-btn active" data-cat="all">All</button>
+          <button class="dex-filter-btn" data-cat="terrain">Terrain</button>
+          <button class="dex-filter-btn" data-cat="geology">Geology</button>
+          <button class="dex-filter-btn" data-cat="resources">Resources</button>
+          <button class="dex-filter-btn" data-cat="environment">Environment & Safety</button>
+          <button class="dex-filter-btn" data-cat="communication">Communication</button>
+        </div>
+        <div class="dex-dataset-grid" id="nasa-dataset-grid"></div>
+      </div>
+
+      <!-- UPLOAD PANEL -->
+      <div class="dex-panel" id="dex-panel-upload" role="tabpanel" aria-labelledby="tab-upload">
+        <div class="upload-workflow">
+          <!-- Step indicator -->
+          <div class="upload-steps">
+            <div class="upload-step active" id="ustep-1">
+              <span class="ustep-num">1</span><span class="ustep-label">Upload</span>
+            </div>
+            <div class="upload-step-line"></div>
+            <div class="upload-step" id="ustep-2">
+              <span class="ustep-num">2</span><span class="ustep-label">Validate</span>
+            </div>
+            <div class="upload-step-line"></div>
+            <div class="upload-step" id="ustep-3">
+              <span class="ustep-num">3</span><span class="ustep-label">Preview</span>
+            </div>
+            <div class="upload-step-line"></div>
+            <div class="upload-step" id="ustep-4">
+              <span class="ustep-num">4</span><span class="ustep-label">Metadata</span>
+            </div>
+            <div class="upload-step-line"></div>
+            <div class="upload-step" id="ustep-5">
+              <span class="ustep-num">5</span><span class="ustep-label">Import</span>
+            </div>
+          </div>
+
+          <!-- Stage 1: File drop -->
+          <div class="upload-stage" id="upload-stage-1">
+            <h3 class="upload-stage-title">Select or Drop a File</h3>
+            <p class="upload-desc">Supported formats: <strong>CSV, JSON, GeoJSON, JPG/PNG</strong>. Maximum file size: <strong>25 MB</strong>.</p>
+            <div class="upload-dropzone" id="upload-dropzone" role="button" tabindex="0" aria-label="Drop file here or click to browse">
+              <div class="dropzone-icon">📂</div>
+              <div class="dropzone-text">Drop your file here or <span class="dropzone-browse">browse</span></div>
+              <div class="dropzone-hint">CSV · JSON · GeoJSON · JPG · PNG · up to 25 MB</div>
+              <input type="file" id="upload-file-input" accept=".csv,.json,.geojson,.jpg,.jpeg,.png" style="display:none" aria-hidden="true" />
+            </div>
+            <div class="upload-type-selector">
+              <label for="upload-obs-type" class="upload-label">Observation Type:</label>
+              <select id="upload-obs-type" class="tactical-select" style="width:auto; min-width:200px;">
+                <option value="terrain">Terrain / Surface Observation</option>
+                <option value="hazard">Obstacle / Hazard</option>
+                <option value="resource">Water / Ice / Resource</option>
+                <option value="radiation">Radiation Measurement</option>
+                <option value="temperature">Temperature Measurement</option>
+                <option value="aerial">Aerial / Drone Imagery</option>
+                <option value="science">Scientific Sample / Target</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div id="upload-error" class="upload-error hidden" role="alert"></div>
+          </div>
+
+          <!-- Stage 2: Validation results -->
+          <div class="upload-stage hidden" id="upload-stage-2">
+            <h3 class="upload-stage-title">Validation Results</h3>
+            <div id="validation-results" class="validation-results"></div>
+            <div class="upload-stage-actions">
+              <button class="wizard-btn-secondary" id="upload-back-1">← Back</button>
+              <button class="wizard-btn-primary" id="upload-proceed-preview">View Preview →</button>
+            </div>
+          </div>
+
+          <!-- Stage 3: Data preview -->
+          <div class="upload-stage hidden" id="upload-stage-3">
+            <h3 class="upload-stage-title">Data Preview</h3>
+            <div id="data-preview-container" class="data-preview-container"></div>
+            <div class="upload-stage-actions">
+              <button class="wizard-btn-secondary" id="upload-back-2">← Back</button>
+              <button class="wizard-btn-primary" id="upload-proceed-metadata">Set Metadata →</button>
+            </div>
+          </div>
+
+          <!-- Stage 4: Metadata -->
+          <div class="upload-stage hidden" id="upload-stage-4">
+            <h3 class="upload-stage-title">Assign Metadata</h3>
+            <div class="metadata-form">
+              <div class="meta-field">
+                <label for="meta-name">Dataset Name <span class="meta-required">*</span></label>
+                <input type="text" id="meta-name" class="meta-input" placeholder="e.g. Rover Alpha Terrain Survey — Sol 142" />
+              </div>
+              <div class="meta-field">
+                <label for="meta-source">Source / Observer <span class="meta-required">*</span></label>
+                <input type="text" id="meta-source" class="meta-input" placeholder="e.g. Perseverance Rover, Field Team Alpha" />
+              </div>
+              <div class="meta-field">
+                <label for="meta-desc">Description</label>
+                <textarea id="meta-desc" class="meta-input" rows="2" placeholder="Brief description of what was observed"></textarea>
+              </div>
+              <div class="meta-field-row">
+                <div class="meta-field">
+                  <label for="meta-obs-date">Observation Date</label>
+                  <input type="date" id="meta-obs-date" class="meta-input" />
+                </div>
+                <div class="meta-field">
+                  <label for="meta-units">Units</label>
+                  <input type="text" id="meta-units" class="meta-input" placeholder="e.g. µSv/hr, °C, m" />
+                </div>
+              </div>
+              <div class="meta-field-row" id="meta-coord-section">
+                <div class="meta-field">
+                  <label for="meta-lat">Latitude (°N) <span class="meta-hint">— if no coords in file</span></label>
+                  <input type="number" id="meta-lat" class="meta-input" step="0.0001" min="-90" max="90" placeholder="e.g. 18.38" />
+                </div>
+                <div class="meta-field">
+                  <label for="meta-lon">Longitude (°E)</label>
+                  <input type="number" id="meta-lon" class="meta-input" step="0.0001" min="-180" max="360" placeholder="e.g. 77.58" />
+                </div>
+              </div>
+              <div class="meta-field">
+                <label class="check-row">
+                  <input type="checkbox" id="meta-use-in-routing" />
+                  <span>Include eligible hazard observations in route planning <span class="meta-hint">(only applied if type=hazard and coordinates are valid)</span></span>
+                </label>
+              </div>
+            </div>
+            <div class="upload-stage-actions">
+              <button class="wizard-btn-secondary" id="upload-back-3">← Back</button>
+              <button class="wizard-btn-primary" id="upload-submit">Import Dataset →</button>
+            </div>
+          </div>
+
+          <!-- Stage 5: Success -->
+          <div class="upload-stage hidden" id="upload-stage-5">
+            <div class="upload-success">
+              <div class="upload-success-icon">✅</div>
+              <h3>Dataset Imported Successfully</h3>
+              <p id="upload-success-msg">Your observation has been added to the map.</p>
+              <div class="upload-stage-actions" style="justify-content:center;">
+                <button class="wizard-btn-primary" id="upload-view-on-map">View on Map</button>
+                <button class="wizard-btn-secondary" id="upload-another">Upload Another</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MY DATASETS PANEL -->
+      <div class="dex-panel" id="dex-panel-my-data" role="tabpanel" aria-labelledby="tab-my-data">
+        <div id="my-datasets-list" class="my-datasets-list">
+          <div class="empty-state">
+            <span class="empty-icon">📂</span>
+            <p>No uploaded datasets yet.</p>
+            <button class="wizard-btn-secondary" id="go-to-upload-btn">Upload an Observation</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SPE EMERGENCY BANNER
+  ═══════════════════════════════════════════════════════════════ -->
+  <div id="spe-banner" class="spe-banner hidden" role="alert" aria-live="assertive">
+    <div class="spe-banner-inner">
+      <span class="spe-pulse-dot" aria-hidden="true"></span>
+      <strong>⚡ SOLAR PARTICLE EVENT CLASS X4.2 — RADIATION STORM:</strong>
+      <span>Surface ionizing flux critical (&gt;350 µSv/hr). Execute immediate shelter abort!</span>
+      <button id="btn-trigger-abort-banner" class="btn-abort-inline">ENGAGE SHELTER ABORT</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       TOP NAVIGATION BAR
+  ═══════════════════════════════════════════════════════════════ -->
+  <header class="topbar" role="banner">
+    <div class="brand-cluster">
+      <div class="nasa-badge" aria-label="NASA Space Apps Challenge">NASA // SPACE APPS</div>
+      <div>
+        <div class="app-title">ARES-NAV <span class="title-sub">INTERPLANETARY SURVIVAL GUIDE: MARTIAN MAP</span></div>
+        <div class="app-subtitle" id="mission-designation">ARES-III // PERSEVERANCE CONVERGENCE ZONE — JEZERO CRATER</div>
+      </div>
+    </div>
+
+    <div class="env-strip" role="status" aria-label="Environmental readings">
+      <div class="env-pill" title="Current Mars local mean solar time">
+        <span class="env-label">SOL TIME</span>
+        <span class="env-val" id="hud-sol-time">SOL 142 // 11:42 LMST</span>
+      </div>
+      <div class="env-pill" title="Mars surface gravity from GMM-3 model">
+        <span class="env-label beginner-label" data-expert="GRAVITY (GMM-3)" data-beginner="SURFACE GRAVITY">GRAVITY (GMM-3)</span>
+        <span class="env-val" id="hud-gravity">3.721 m/s² (0.38g)</span>
+      </div>
+      <div class="env-pill" title="Mean surface temperature at current site">
+        <span class="env-label">SURFACE TEMP</span>
+        <span class="env-val" id="hud-temp">-56°C</span>
+      </div>
+      <div class="env-pill" title="Atmospheric pressure (CO₂ dominant)">
+        <span class="env-label beginner-label" data-expert="ATMOS PRESSURE" data-beginner="AIR PRESSURE">ATMOS PRESSURE</span>
+        <span class="env-val" id="hud-pressure">745 Pa (CO₂)</span>
+      </div>
+      <div class="env-pill" id="pill-radiation" title="Ionizing radiation flux — MSL RAD calibrated">
+        <span class="env-label beginner-label" data-expert="RADIATION FLUX" data-beginner="RADIATION LEVEL">RADIATION FLUX</span>
+        <span class="env-val" id="hud-rad">24.5 µSv/hr</span>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <!-- Mode toggle -->
+      <div class="mode-toggle-wrap">
+        <span class="mode-toggle-label">MODE:</span>
+        <div class="mode-toggle" id="mode-toggle" role="group" aria-label="Interface mode">
+          <button class="mode-toggle-btn active" id="btn-mode-beginner" data-mode="beginner" aria-pressed="true">🌱 Beginner</button>
+          <button class="mode-toggle-btn" id="btn-mode-expert" data-mode="expert" aria-pressed="false">⚙️ Expert</button>
+        </div>
+      </div>
+      <button id="btn-tutorial" class="btn-tactical" title="Open interactive tutorial" aria-label="Open tutorial">📖 Tutorial</button>
+      <button id="btn-knowledge" class="btn-tactical" title="Open Mars Science Glossary" aria-label="Open glossary">🔭 Science Guide</button>
+      <button id="btn-data-explorer" class="btn-tactical btn-accent" title="Open Mars Data Explorer" aria-label="Open data explorer">📡 Data Explorer</button>
+      <button id="btn-spe-toggle" class="btn-tactical btn-warning" title="Simulate Solar Particle Event radiation storm" aria-label="Simulate SPE radiation storm">⚡ SIMULATE SPE</button>
+      <button id="btn-judge-modal" class="btn-tactical btn-accent" aria-label="View dataset architecture and provenance">🏆 DATASETS</button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       MAIN 3-COLUMN WORKSPACE
+  ═══════════════════════════════════════════════════════════════ -->
+  <main class="workspace" role="main">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="panel panel-left" role="complementary" aria-label="Mission configuration">
+
+      <!-- 1. SITE SELECTION -->
+      <section class="panel-section">
+        <div class="section-header">
+          <span class="section-index" aria-hidden="true">01</span>
+          <h2 class="expert-label" data-expert="MARS LANDING ZONE &amp; GLOBAL COORDS" data-beginner="SELECT EXPLORATION SITE">MARS LANDING ZONE &amp; GLOBAL COORDS</h2>
+          <button class="section-help-btn" data-tooltip="Choose one of 10 candidate Mars exploration sites, each with real NASA data coverage. Use Custom Coordinates to explore anywhere on Mars." aria-label="Help">?</button>
+        </div>
+        <select id="site-selector" class="tactical-select" aria-label="Mars exploration site">
+          <option value="jezero">Jezero Crater — Western Fan Delta (18.38°N, 77.58°E)</option>
+          <option value="melas">Melas Chasma — Valles Marineris (-9.82°S, 283.60°E)</option>
+          <option value="arcadia">Arcadia Planitia — Glacial Ice Sheet (39.20°N, 188.00°E)</option>
+          <option value="gale">Gale Crater — Aeolis Mons / Mt. Sharp (-5.08°S, 137.85°E)</option>
+          <option value="olympus">Olympus Mons — Basal Scarp &amp; Aureole (18.65°N, 226.20°E)</option>
+          <option value="syrtis">NE Syrtis Major — Noachian Crust (17.88°N, 77.10°E)</option>
+          <option value="mawrth">Mawrth Vallis — Phyllosilicate Plateau (23.99°N, 341.04°E)</option>
+          <option value="hellas">Hellas Planitia — Deep Impact Basin (-42.40°S, 70.50°E)</option>
+          <option value="gusev">Gusev Crater — Columbia Hills (-14.59°S, 175.47°E)</option>
+          <option value="elysium">Elysium Planitia — InSight Homestead (4.50°N, 135.62°E)</option>
+          <option value="custom">🌍 Custom Planetary Coordinates (Any Lat/Lon)</option>
+        </select>
+
+        <div class="custom-coord-bar" style="display:grid; grid-template-columns: 1fr 1fr auto; gap:5px; margin-bottom:6px;">
+          <input type="number" id="inp-lat" step="0.01" min="-85" max="85" value="18.38" placeholder="Lat (°N)" title="Latitude (-85° to +85°)" aria-label="Latitude" class="coord-input" />
+          <input type="number" id="inp-lon" step="0.01" min="-180" max="360" value="77.58" placeholder="Lon (°E)" title="Longitude (-180° to +360°)" aria-label="Longitude" class="coord-input" />
+          <button id="btn-go-coords" class="btn-add-wp" aria-label="Go to coordinates">GO 🛰️</button>
+        </div>
+
+        <p id="site-summary" class="site-summary-text">Ancient lacustrine delta deposit rich in phyllosilicates and magnesium carbonates.</p>
+
+        <!-- Beginner-only site context card -->
+        <div class="beginner-site-card hidden" id="beginner-site-card">
+          <div class="bsc-row"><span class="bsc-label">Why this site?</span><span class="bsc-val" id="bsc-why">Ancient lake bed — high chance of preserved biosignatures</span></div>
+          <div class="bsc-row"><span class="bsc-label">Key hazard</span><span class="bsc-val bsc-hazard" id="bsc-hazard">Steep delta scarps &gt;25°</span></div>
+          <div class="bsc-row"><span class="bsc-label">Water resources</span><span class="bsc-val bsc-water" id="bsc-water">Moderate (clay hydration ~8%)</span></div>
+          <div class="bsc-row"><span class="bsc-label">Radiation risk</span><span class="bsc-val" id="bsc-rad">26.7 µSv/hr (nominal)</span></div>
+        </div>
+      </section>
+
+      <!-- 2. MAP LAYERS -->
+      <section class="panel-section" id="section-layers">
+        <div class="section-header">
+          <span class="section-index" aria-hidden="true">02</span>
+          <h2 class="expert-label" data-expert="NASA DATASET LAYERS" data-beginner="MAP VIEW">NASA DATASET LAYERS</h2>
+          <span class="badge-mini expert-only">7 FUSED LAYERS</span>
+          <button class="section-help-btn" data-tooltip="Switch between different NASA scientific data views. Each layer visualizes a different property of the Martian surface." aria-label="Help">?</button>
+        </div>
+
+        <!-- Beginner simplified layer picker -->
+        <div class="beginner-layer-picker hidden" id="beginner-layer-picker">
+          <div class="blp-grid">
+            <button class="blp-btn active" data-layer="composite" aria-pressed="true">
+              <span class="blp-icon">🗺️</span>
+              <strong>Terrain</strong>
+              <span>Overview with hazards</span>
+            </button>
+            <button class="blp-btn" data-layer="risk_heatmap" aria-pressed="false">
+              <span class="blp-icon">⚠️</span>
+              <strong>Risk Heatmap</strong>
+              <span>Multi-hazard zones</span>
+            </button>
+            <button class="blp-btn" data-layer="slope" aria-pressed="false">
+              <span class="blp-icon">⛰️</span>
+              <strong>Steepness</strong>
+              <span>How steep the ground is</span>
+            </button>
+            <button class="blp-btn" data-layer="radiation" aria-pressed="false">
+              <span class="blp-icon">☢️</span>
+              <strong>Radiation</strong>
+              <span>Radiation exposure</span>
+            </button>
+            <button class="blp-btn" data-layer="hydration" aria-pressed="false">
+              <span class="blp-icon">💧</span>
+              <strong>Water Ice</strong>
+              <span>Ice &amp; hydration</span>
+            </button>
+            <button class="blp-btn" data-layer="mineral" aria-pressed="false">
+              <span class="blp-icon">🔬</span>
+              <strong>Minerals</strong>
+              <span>Science targets</span>
+            </button>
+            <button class="blp-btn" data-layer="comm_los" aria-pressed="false">
+              <span class="blp-icon">📡</span>
+              <strong>Radio Link</strong>
+              <span>Comms with base</span>
+            </button>
+            <button class="blp-btn" data-layer="habitat_suitability" aria-pressed="false">
+              <span class="blp-icon">🏠</span>
+              <strong>Habitat Siting</strong>
+              <span>Best basecamp locations</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Expert full layer grid -->
+        <div class="layer-grid expert-only" id="layer-buttons">
+          <button class="layer-btn active" data-layer="composite" aria-pressed="true">
+            <span class="layer-dot dot-composite" aria-hidden="true"></span>
+            <div class="layer-meta">
+              <strong>Tactical Survival Composite</strong>
+              <span>MOLA Hillshade + Slope + Hazards</span>
+            </div>
+            <span class="prov-badge prov-verified" title="Real MOLA raster tiles for Jezero/Melas/Arcadia; derived for other sites">Verified</span>
+          </button>
+          <button class="layer-btn" data-layer="habitat_suitability" aria-pressed="false">
+            <span class="layer-dot" style="background: #10b981" aria-hidden="true"></span>
+            <div class="layer-meta">
+              <strong>MCDA Habitat Suitability (P2.2)</strong>
+              <span>AHP Siting + 800m HLS Blast Standoff</span>
+            </div>
+            <span class="prov-badge prov-calculated" title="Multi-Criteria Decision Analysis (AHP CR < 0.10) across Slope, Boulders, Solar, ISRU, Horizon Masking, and Comms">Calculated</span>
+          </button>
+          <button class="layer-btn" data-layer="risk_heatmap" aria-pressed="false">
+            <span class="layer-dot" style="background: #ea580c" aria-hidden="true"></span>
+            <div class="layer-meta">
+              <strong>Environmental Risk Heatmap</strong>
+              <span>Composite: Slope + Boulder + Rad + Comm</span>
+            </div>
+            <span class="prov-badge prov-calculated" title="Calculated multi-hazard index weighted across MOLA topography, HiRISE boulders, MSL RAD, and UHF RF shadows">Calculated</span>
+          </button>
+          <button class="layer-btn" data-layer="elevation" aria-pressed="false">
+            <span class="layer-dot dot-elev" aria-hidden="true"></span>
+            <div class="layer-meta">
+              <strong>MOLA Topographic DEM</strong>
+              <span>Laser Altimeter Elevation + Contours</span>
+            </div>
+            <span class="prov-badge prov-verified">Verified</span>
+          </button>
+          <button class="layer-btn" data-layer="slope" aria-pressed="false">
+            <span class="layer-dot dot-slope" aria-hidden="true"></span>
+            <div class="layer-meta">
+              <strong>Geodesic Slope Hazard (°)</strong>
+              <span>NASA STD-3001 Traversability (&gt;15° Risk)</span>
+            </div>
+            <span class="prov-badge prov-calculated">Calculated</span>
+          </button>
+          <button class="layer-btn" data-layer="boulder" aria-pressed="false">
+            <span class="layer-dot dot-boulder" aria-hidden="true"></span>
+            <div class="layer-meta">
+              <strong>HiRISE Boulder &amp; Roughness</strong>
+              <span>Sub-meter Talus &amp; Aeolian Slippage</span>
+            </div>
+            <span class="prov-badge prov-partial" title="Real HiRISE imagery for Jezero; estimated from elevation for other sites">Partial</span>
+          </button>
+          <button class="layer-btn" data-layer="mineral" aria-pressed="false">
+            <span class="layer-dot dot-mineral" aria-hidden="true"></span>
+            <div class="layer-meta">
+              <strong>CRISM Spectral Mineralogy</strong>
+              <span>Smectite Clays, Carbonates, Silica</span>
+            </div>
+            <span class="prov-badge prov-simulated" title="CRISM catalog records real; mineral grids synthesized from POI locations">Simulated</span>
+          </button>
+          <button class="layer-btn" data-layer="hydration" aria-pressed="false">
+            <span class="layer-dot dot-hydration" aria-hidden="true"></span>
+            <div class="layer-meta">
+              <strong>SHARAD / Neutron H₂O Ice</strong>
+              <span>ISRU Extractable Water Equivalent %</span>
+            </div>
+            <span class="prov-badge prov-simulated" title="Modeled from SHARAD catalog data; not pixel-precise">Simulated</span>
+          </button>
+          <button class="layer-btn" data-layer="radiation" aria-pressed="false">
+            <span class="layer-dot dot-rad" aria-hidden="true"></span>
+            <div class="layer-meta">
+              <strong>Odyssey / RAD Ionizing Dose</strong>
+              <span>GCR &amp; Solar Particle Shielding Map</span>
+            </div>
+            <span class="prov-badge prov-calculated" title="Calibrated to real MSL RAD 26.67 µSv/hr measurement; modeled per site">Calculated</span>
+          </button>
+          <button class="layer-btn" data-layer="comm_los" aria-pressed="false">
+            <span class="layer-dot dot-comm" aria-hidden="true"></span>
+            <div class="layer-meta">
+              <strong>UHF Comm Line-of-Sight</strong>
+              <span>3D Viewshed from Habitat Antenna Mast</span>
+            </div>
+            <span class="prov-badge prov-calculated">Calculated</span>
+          </button>
+        </div>
+
+        <!-- User layers (shown when user datasets exist) -->
+        <div id="user-layer-section" class="user-layer-section hidden">
+          <div class="user-layer-header">
+            <span>User Observations</span>
+            <span class="prov-badge prov-unverified">Unverified</span>
+          </div>
+          <div id="user-layer-buttons" class="layer-grid"></div>
+        </div>
+
+        <div class="overlay-toggles expert-only">
+          <label class="check-row">
+            <input type="checkbox" id="chk-contours" checked />
+            <span>MOLA Topographic Contours</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="chk-hazards" checked />
+            <span>Red-Zone Slope/Boulder Hatching</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="chk-direct-path" checked />
+            <span>Compare vs. Direct Crow-Flies Path</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="chk-trek-tiles" checked />
+            <span>Blend Real Stitched Mars Trek MOLA Mosaic</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="chk-ctx-tiles" />
+            <span>Stream Live CTX 5m Mosaic (ArcGIS/Mars Trek)</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="chk-hirise-strip" />
+            <span>Overlay Real HiRISE RDR Swath (PSP_008650)</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- 3. ROUTE PLANNING -->
+      <section class="panel-section">
+        <div class="section-header">
+          <span class="section-index" aria-hidden="true">03</span>
+          <h2 class="expert-label" data-expert="EVA PATHFINDING AI" data-beginner="ROUTE PLANNING">EVA PATHFINDING AI</h2>
+          <button class="section-help-btn" data-tooltip="ARES-NAV uses a multi-objective A* algorithm to find the safest route between your chosen waypoints, avoiding steep slopes, rough terrain and radiation." aria-label="Help">?</button>
+        </div>
+
+        <!-- Beginner route mode picker -->
+        <div class="beginner-route-modes hidden" id="beginner-route-modes">
+          <p class="beginner-hint">What should the route prioritize?</p>
+          <div class="brm-grid">
+            <button class="brm-btn active" data-mode="safest" aria-pressed="true">
+              <span>🛡️</span><strong>Safest</strong><small>Avoid steep slopes and radiation</small>
+            </button>
+            <button class="brm-btn" data-mode="balanced" aria-pressed="false">
+              <span>⚖️</span><strong>Balanced</strong><small>Balance safety and time</small>
+            </button>
+            <button class="brm-btn" data-mode="science" aria-pressed="false">
+              <span>🔬</span><strong>Science First</strong><small>Visit important science targets</small>
+            </button>
+            <button class="brm-btn" data-mode="fastest" aria-pressed="false">
+              <span>⚡</span><strong>Fastest</strong><small>Get there quickly</small>
+            </button>
+          </div>
+        </div>
+
+        <!-- Expert mode pills -->
+        <div class="mode-pills expert-only" id="mode-selector">
+          <button class="mode-pill active" data-mode="safest" aria-pressed="true" title="Prioritize gentle slopes, low boulder risk, strong UHF comms, and low radiation">🛡️ SAFEST</button>
+          <button class="mode-pill" data-mode="balanced" aria-pressed="false" title="Balance safety, energy expenditure, and science value">⚖️ BALANCED</button>
+          <button class="mode-pill" data-mode="science" aria-pressed="false" title="Route through high-priority CRISM mineral &amp; hydration corridors">🔬 MAX SCIENCE</button>
+          <button class="mode-pill" data-mode="fastest" aria-pressed="false" title="Minimum duration emergency traverse">⚡ FASTEST</button>
+        </div>
+
+        <div class="slider-group expert-only">
+          <div class="slider-label-row">
+            <span>Max Safe Slope Limit (NASA STD-3001)</span>
+            <strong id="lbl-max-slope">15°</strong>
+          </div>
+          <input type="range" id="rng-max-slope" min="8" max="28" step="1" value="15" aria-label="Maximum safe slope" />
+        </div>
+
+        <div class="slider-group expert-only">
+          <div class="slider-label-row">
+            <span>Astronaut + xEMU Suit Mass (0.38g)</span>
+            <strong id="lbl-suit-mass">145 kg</strong>
+          </div>
+          <input type="range" id="rng-suit-mass" min="110" max="210" step="5" value="145" aria-label="Suit mass" />
+        </div>
+
+        <!-- Beginner simplified sliders -->
+        <div class="beginner-sliders hidden" id="beginner-sliders">
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span>Maximum slope to traverse <span class="meta-hint">(safer = lower)</span></span>
+              <strong id="lbl-max-slope-b">15°</strong>
+            </div>
+            <input type="range" id="rng-max-slope-b" min="8" max="28" step="1" value="15" aria-label="Maximum slope (beginner)" />
+          </div>
+        </div>
+
+        <div class="waypoint-box">
+          <div class="waypoint-header">
+            <span>ROUTE WAYPOINTS</span>
+            <button id="btn-reset-route" class="btn-link">Reset Default</button>
+          </div>
+          <div id="waypoint-list" class="waypoint-list"></div>
+          <div class="waypoint-hint" id="waypoint-hint-text">
+            💡 Click any marker or location on the map to add a waypoint
+          </div>
+        </div>
+      </section>
+    </aside>
+
+    <!-- CENTER: MAP -->
+    <section class="center-stage" role="region" aria-label="Mars map">
+      <div class="map-toolbar">
+        <div class="view-mode-tabs" role="tablist" aria-label="Map view">
+          <button id="tab-global" class="view-tab" role="tab" aria-selected="false">🌍 GLOBAL ATLAS</button>
+          <button id="tab-2d" class="view-tab active" role="tab" aria-selected="true">🗺️ 2D SECTOR MAP</button>
+          <button id="tab-3d" class="view-tab" role="tab" aria-selected="false">⛰️ 3D TERRAIN</button>
+        </div>
+
+        <div class="sim-controls">
+          <button id="btn-play-eva" class="btn-sim" aria-label="Simulate Marswalk EVA">▶ SIMULATE MARSWALK</button>
+          <button id="btn-abort-shelter" class="btn-sim btn-sim-danger" title="Compute fastest emergency escape path to nearest radiation shelter" aria-label="Emergency shelter abort">🚨 EMERGENCY ABORT</button>
+          <button id="btn-export-plan" class="btn-sim" aria-label="Export mission plan as JSON">📥 EXPORT MISSION JSON</button>
+        </div>
+      </div>
+
+      <div class="canvas-wrapper" id="canvas-wrapper">
+        <canvas id="mars-canvas" width="920" height="620" role="img" aria-label="Interactive Mars terrain map"></canvas>
+        <canvas id="user-obs-canvas" width="920" height="620" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:5;"></canvas>
+
+        <!-- Coverage indicator -->
+        <div class="coverage-indicator" id="coverage-indicator">
+          <span id="coverage-text">MOLA + Real Tiles</span>
+        </div>
+
+        <!-- Floating legend -->
+        <div class="map-legend" id="map-legend" aria-label="Map legend">
+          <div class="legend-title" id="legend-layer-title">TACTICAL SURVIVAL COMPOSITE</div>
+          <div class="legend-gradient" id="legend-gradient"></div>
+          <div class="legend-labels">
+            <span id="legend-min">-2585 m (Low/Safe)</span>
+            <span id="legend-mid">Moderate</span>
+            <span id="legend-max">-2420 m (Steep/High)</span>
+          </div>
+          <div class="route-key">
+            <span><i class="key-line key-safe" aria-hidden="true"></i> A* Optimal EVA Path</span>
+            <span><i class="key-line key-direct" aria-hidden="true"></i> Direct Crow-Flies</span>
+            <span><i class="key-line key-abort" aria-hidden="true"></i> Emergency Abort</span>
+          </div>
+        </div>
+
+        <!-- Cursor telemetry HUD -->
+        <div class="cursor-hud" id="cursor-hud" aria-label="Surface telemetry probe" aria-live="polite">
+          <div class="cursor-hud-title">SURFACE TELEMETRY PROBE</div>
+          <div class="cursor-grid">
+            <span>Coords: <strong id="probe-coords">18.38°N, 77.58°E</strong></span>
+            <span class="expert-label" data-expert="MOLA Elev:" data-beginner="Elevation:">MOLA Elev: <strong id="probe-elev">-2540 m</strong></span>
+            <span>Slope: <strong id="probe-slope">4.2°</strong></span>
+            <span class="expert-label" data-expert="HiRISE Boulders:" data-beginner="Roughness:">HiRISE Boulders: <strong id="probe-boulder">8.5%</strong></span>
+            <span class="expert-label" data-expert="CRISM Mineral:" data-beginner="Minerals:">CRISM Mineral: <strong id="probe-mineral">64.0</strong></span>
+            <span>H₂O Ice Eq: <strong id="probe-hydration">8.4%</strong></span>
+            <span>Rad Flux: <strong id="probe-rad">23.8 µSv/h</strong></span>
+            <span class="expert-label" data-expert="UHF Comm:" data-beginner="Radio Link:">UHF Comm: <strong id="probe-comm">98.2%</strong></span>
+          </div>
+        </div>
+
+        <div id="hint-3d" class="hint-3d hidden" aria-hidden="true">
+          🖱️ Drag left/right to rotate · Drag up/down to tilt · Scroll to zoom
+        </div>
+
+        <!-- User observation pins on map (canvas overlay) -->
+        <canvas id="user-obs-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" aria-hidden="true"></canvas>
+      </div>
+
+      <!-- Bottom telemetry profile -->
+      <div class="profile-dock">
+        <div class="profile-header">
+          <div class="profile-title-group">
+            <span class="section-index" aria-hidden="true">04</span>
+            <h3 class="expert-label" data-expert="EVA TRAVERSE ELEVATION, SLOPE HAZARD &amp; METABOLIC TELEMETRY PROFILE" data-beginner="ROUTE ANALYSIS">EVA TRAVERSE ELEVATION, SLOPE &amp; METABOLIC TELEMETRY</h3>
+          </div>
+          <div class="profile-tabs" role="tablist">
+            <button class="prof-tab active" data-prof="elev_slope" role="tab">Elevation + Slope</button>
+            <button class="prof-tab" data-prof="metabolic_o2" role="tab">Oxygen + Energy</button>
+            <button class="prof-tab" data-prof="rad_comm" role="tab">Radiation + Comms</button>
+          </div>
+        </div>
+        <canvas id="profile-canvas" width="920" height="145" role="img" aria-label="Telemetry profile chart"></canvas>
+      </div>
+    </section>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="panel panel-right" role="complementary" aria-label="Mission telemetry">
+
+      <!-- 5. TELEMETRY KPIs -->
+      <section class="panel-section">
+        <div class="section-header">
+          <span class="section-index" aria-hidden="true">05</span>
+          <h2 class="expert-label" data-expert="xEMU SUIT &amp; EVA TELEMETRY" data-beginner="MISSION VITALS">xEMU SUIT &amp; EVA TELEMETRY</h2>
+          <span class="safety-badge" id="badge-safety-score">SAFETY 91.4%</span>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <span class="kpi-label expert-label" data-expert="TRAVERSE DISTANCE" data-beginner="TOTAL DISTANCE">TRAVERSE DISTANCE</span>
+            <strong class="kpi-val" id="kpi-dist">1.87 km</strong>
+            <span class="kpi-sub" id="kpi-elev-gain">+97m / -63m</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label expert-label" data-expert="EST. EVA DURATION" data-beginner="ESTIMATED TIME">EST. EVA DURATION</span>
+            <strong class="kpi-val" id="kpi-time">41.9 min</strong>
+            <span class="kpi-sub" id="kpi-speed">Avg 2.68 km/h</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label expert-label" data-expert="MAX SLOPE / BOULDER" data-beginner="STEEPEST SLOPE">MAX SLOPE / BOULDER</span>
+            <strong class="kpi-val" id="kpi-slope">12.0°</strong>
+            <span class="kpi-sub" id="kpi-boulder">Max 23.7% Talus</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label expert-label" data-expert="CUMULATIVE RAD DOSE" data-beginner="RADIATION DOSE">CUMULATIVE RAD DOSE</span>
+            <strong class="kpi-val" id="kpi-rad">16.28 µSv</strong>
+            <span class="kpi-sub" id="kpi-comm">Min Comm: 94.9%</span>
+          </div>
+        </div>
+
+        <!-- PLSS Consumables -->
+        <div class="consumables-box">
+          <div class="consumable-row">
+            <div class="cons-header">
+              <span class="expert-label" data-expert="PLSS Primary O₂ Tank (580L Cap)" data-beginner="Oxygen Supply (580L Tank)">PLSS Primary O₂ Tank (580L Cap)</span>
+              <strong id="cons-o2-text">29.5 L (5.1%)</strong>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar-o2-track">
+              <div class="progress-fill fill-o2" id="bar-o2" style="width: 12%"></div>
+            </div>
+          </div>
+          <div class="consumable-row">
+            <div class="cons-header">
+              <span class="expert-label" data-expert="xEMU Suit Battery (1850 Wh Cap)" data-beginner="Suit Battery (1850 Wh)">xEMU Suit Battery (1850 Wh Cap)</span>
+              <strong id="cons-bat-text">136 Wh (7.4%)</strong>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar-bat-track">
+              <div class="progress-fill fill-bat" id="bar-bat" style="width: 15%"></div>
+            </div>
+          </div>
+          <div class="consumable-row">
+            <div class="cons-header">
+              <span class="expert-label" data-expert="Astronaut Metabolic Burn (Pandolf 0.38g)" data-beginner="Energy Burned">Astronaut Metabolic Burn (Pandolf 0.38g)</span>
+              <strong id="cons-kcal-text">142 kcal</strong>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar-kcal-track">
+              <div class="progress-fill fill-kcal" id="bar-kcal" style="width: 18%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comparison-callout" id="comparison-callout">
+          <div class="comp-title">⚡ A* AI PATHFINDER VS. DIRECT LINE</div>
+          <div class="comp-body" id="comp-body-text">
+            Reduces cumulative slope &amp; boulder hazard exposure by <strong>41.3%</strong> while avoiding <strong>74.4% talus traps</strong>.
+          </div>
+        </div>
+
+        <!-- P1.3 Multi-Hazard Environmental Risk Breakdown -->
+        <div class="hazard-breakdown-card" id="hazard-breakdown-card">
+          <div class="hb-header">
+            <span class="hb-title">⚠️ MULTI-HAZARD RISK BREAKDOWN</span>
+            <span class="hb-driver-badge" id="hb-driver-badge">PRIMARY: NOMINAL</span>
+          </div>
+
+          <div class="hb-meter-row">
+            <span class="hb-meter-label">Composite Risk Index</span>
+            <strong class="hb-meter-val" id="hb-composite-val">--%</strong>
+          </div>
+          <div class="progress-track" role="progressbar" aria-label="Composite Risk">
+            <div class="progress-fill fill-hb-composite" id="hb-composite-bar" style="width: 0%"></div>
+          </div>
+
+          <div class="hb-grid">
+            <div class="hb-item">
+              <div class="hb-item-head">
+                <span>🧗 Terrain Slope (35%)</span>
+                <strong id="hb-val-slope">0%</strong>
+              </div>
+              <div class="hb-track"><div class="hb-fill hb-fill-slope" id="hb-bar-slope" style="width: 0%"></div></div>
+            </div>
+            <div class="hb-item">
+              <div class="hb-item-head">
+                <span>🪨 Boulder Cover (25%)</span>
+                <strong id="hb-val-boulder">0%</strong>
+              </div>
+              <div class="hb-track"><div class="hb-fill hb-fill-boulder" id="hb-bar-boulder" style="width: 0%"></div></div>
+            </div>
+            <div class="hb-item">
+              <div class="hb-item-head">
+                <span>☢️ Radiation Flux (20%)</span>
+                <strong id="hb-val-rad">0%</strong>
+              </div>
+              <div class="hb-track"><div class="hb-fill hb-fill-rad" id="hb-bar-rad" style="width: 0%"></div></div>
+            </div>
+            <div class="hb-item">
+              <div class="hb-item-head">
+                <span>📡 Comms Shadow (20%)</span>
+                <strong id="hb-val-comm">0%</strong>
+              </div>
+              <div class="hb-track"><div class="hb-fill hb-fill-comm" id="hb-bar-comm" style="width: 0%"></div></div>
+            </div>
+          </div>
+
+          <div class="hb-advisory" id="hb-advisory">
+            <span class="hb-advisory-icon">ℹ️</span>
+            <span class="hb-advisory-text" id="hb-advisory-text">Plan a traverse or inspect sector hazards to view environmental risk advisory.</span>
+          </div>
+
+          <div class="hb-provenance">
+            <span>Data Provenance:</span>
+            <span class="prov-badge prov-calculated">Calculated Composite</span>
+            <span class="hb-prov-detail">MOLA (±1m) · HiRISE (0.25m) · MSL RAD (26.7µSv/h) · 3D Ray-March</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. POI INSPECTOR -->
+      <section class="panel-section">
+        <div class="section-header">
+          <span class="section-index" aria-hidden="true">06</span>
+          <h2 class="expert-label" data-expert="FIELD TARGET DOSSIER" data-beginner="LOCATION DETAILS">FIELD TARGET DOSSIER</h2>
+        </div>
+        <div id="poi-inspector" class="poi-inspector">
+          <div class="poi-desc">Select any marker on the map to inspect its details.</div>
+        </div>
+      </section>
+
+      <!-- 7. TARGET MANIFEST -->
+      <section class="panel-section">
+        <div class="section-header">
+          <span class="section-index" aria-hidden="true">07</span>
+          <h2 class="expert-label" data-expert="SECTOR TARGET MANIFEST" data-beginner="EXPLORATION TARGETS">SECTOR TARGET MANIFEST</h2>
+          <div class="manifest-filter" id="manifest-filter">
+            <button class="mf-btn active" data-filter="all">All</button>
+            <button class="mf-btn" data-filter="science">Science</button>
+            <button class="mf-btn" data-filter="isru">Resources</button>
+            <button class="mf-btn" data-filter="shelter">Shelter</button>
+            <button class="mf-btn" data-filter="hazard">Hazards</button>
+          </div>
+        </div>
+        <div id="poi-directory" class="poi-directory"></div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       DATASET PROVENANCE MODAL (existing "DATASETS" button)
+  ═══════════════════════════════════════════════════════════════ -->
+  <div id="judge-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-label="Dataset architecture">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <span class="nasa-badge">REAL NASA PDS / ODE / WMTS PROVENANCE</span>
+          <h2>ARES-NAV: Real NASA Datasets &amp; Physics Architecture</h2>
+        </div>
+        <button id="btn-close-modal" class="btn-close" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-col">
+            <h3>1. Real Ingested NASA Datasets (<code>real_nasa_data/</code>)</h3>
+            <ul>
+              <li><strong>Mars Trek WMTS MOLA &amp; CTX 5m Mosaics:</strong> Stitched multi-tile site mosaics for Jezero, Melas, Arcadia from <code>Mars_MGS_MOLA_ClrShade_merge_global_463m</code> and <code>CTX_beta01_uncontrolled_5m_Caltech</code>.</li>
+              <li><strong>NASA PDS ODE HiRISE RDRV11:</strong> Live-queried via <code>oderest.rsl.wustl.edu/live2/</code> (24 real products including <code>PSP_008650_1990_COLOR</code>, <code>PSP_008650_1990_RED</code>, <code>ESP_022680_1985_COLOR</code>).</li>
+              <li><strong>NASA PDS ODE MRO CRISM MTRDR:</strong> 20 real targeted spectral cubes (catalog records; browse tiles not downloaded).</li>
+              <li><strong>Curiosity MSL RAD (<code>MSL-M-RAD-3-RDR-V1.0</code>):</strong> Parsed <strong>5,570 real RDR files</strong> from PDS PPI calibrated to 26.67 µSv/hr surface GCR dose.</li>
+            </ul>
+          </div>
+          <div class="modal-col">
+            <h3>2. Live PDS Product Manifest (Current Site)</h3>
+            <div id="modal-pds-manifest" class="pds-manifest-box">Loading real PDS product records...</div>
+          </div>
+        </div>
+
+        <div class="provenance-legend" style="margin-top:16px;">
+          <h3 style="font-size:13px; color:var(--mars-amber); margin-bottom:8px;">Data Status Legend</h3>
+          <div class="prov-legend-grid">
+            <span class="prov-badge prov-verified">Verified</span> <span>Validated against trusted NASA source</span>
+            <span class="prov-badge prov-calculated">Calculated</span> <span>Derived from real NASA measurements using documented physics models</span>
+            <span class="prov-badge prov-simulated">Simulated</span> <span>Modeled/synthesized from known parameters; not direct observations</span>
+            <span class="prov-badge prov-unverified">Unverified</span> <span>User-contributed; passed format checks only</span>
+            <span class="prov-badge prov-partial">Partial</span> <span>Real data for some sites; estimated for others</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tooltip element (global, moved by JS) -->
+  <div id="global-tooltip" class="global-tooltip hidden" role="tooltip"></div>
+
+  <script src="app.js"></script>
+  <script src="modules/p0_ui.js"></script>
+  <script src="modules/p0_tutorial.js"></script>
+  <script src="modules/p0_knowledge.js"></script>
+  <script src="modules/p0_data_explorer.js"></script>
+  <script src="modules/p0_provenance.js"></script>
+  <script src="modules/p0_user_layers.js"></script>
+  <script src="modules/p1_mission_planning.js"></script>
+  <script src="modules/p1_atmospheric.js"></script>
+  <script src="modules/p1_comm_topology.js"></script>
+  <script src="modules/p2_ephemeris.js"></script>
+  <script src="modules/p2_habitat.js"></script>
+  <script src="modules/p0_init.js"></script>
+</body>
+</html>

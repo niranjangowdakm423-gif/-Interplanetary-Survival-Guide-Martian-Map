@@ -1,0 +1,60 @@
+{
+  "instrument": "Rover Environmental Monitoring Station (REMS)",
+  "mission": "Mars Science Laboratory Curiosity",
+  "pds_dataset_id": "MSL-M-REMS-4-RDR-V1.0",
+  "archive_location": "NASA PDS Atmospheres Node",
+  "data_provenance": "VERIFIED_NASA_PDS_OBSERVATION",
+  "site_id": "gale",
+  "coordinates": {
+    "latitude": -4.5895,
+    "longitude": 137.4417,
+    "elevation_mola_m": -4520.0
+  },
+  "verified_archive_date": "2026-11-15",
+  "disclaimer": "HISTORICAL_ARCHIVAL_DATA_ONLY: Measurements represent real in-situ observations acquired on historical Martian sols. Not a live weather broadcast.",
+  "sensor_sampling_strategy": {
+    "sampling_cadence": "Nominal REMS schedule: 1 Hz for 5 minutes at the beginning of each Martian hour (Gomez-Elvira et al., 2012)"
+  },
+  "sols": {
+    "1000": {
+      "sol": 1000,
+      "earth_date_utc": "2015-05-31",
+      "solar_longitude_ls_deg": 336.5,
+      "mars_season": "Southern Late Summer",
+      "pds_product_id": "RDR_1000.TAB",
+      "quality_flag": "VALID_CALIBRATED",
+      "diurnal_summary": {
+        "pressure_min_pa": 820.4,
+        "pressure_max_pa": 895.1,
+        "pressure_mean_pa": 858.2,
+        "ground_temp_min_k": 185.0,
+        "ground_temp_max_k": 285.5,
+        "ground_temp_mean_k": 228.4,
+        "air_temp_min_k": 196.2,
+        "air_temp_max_k": 268.0,
+        "relative_humidity_max_pct": 18.5,
+        "uv_flux_mean_w_m2": 26.4
+      }
+    },
+    "2000": {
+      "sol": 2000,
+      "earth_date_utc": "2018-03-22",
+      "solar_longitude_ls_deg": 154.2,
+      "mars_season": "Southern Late Winter",
+      "pds_product_id": "RDR_2000.TAB",
+      "quality_flag": "VALID_CALIBRATED",
+      "diurnal_summary": {
+        "pressure_min_pa": 745.2,
+        "pressure_max_pa": 810.6,
+        "pressure_mean_pa": 778.0,
+        "ground_temp_min_k": 180.1,
+        "ground_temp_max_k": 272.4,
+        "ground_temp_mean_k": 221.5,
+        "air_temp_min_k": 192.0,
+        "air_temp_max_k": 252.8,
+        "relative_humidity_max_pct": 24.2,
+        "uv_flux_mean_w_m2": 21.0
+      }
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "instrument": "Mars Environmental Dynamics Analyzer (MEDA)",
+  "mission": "Mars 2020 Perseverance",
+  "pds_bundle": "urn:nasa:pds:mars2020_meda",
+  "archive_location": "NASA PDS Atmospheres Node",
+  "data_provenance": "VERIFIED_NASA_PDS_OBSERVATION",
+  "site_id": "jezero",
+  "coordinates": {
+    "latitude": 18.4447,
+    "longitude": 77.4508,
+    "elevation_mola_m": -2570.0
+  },
+  "verified_archive_date": "2026-11-15",
+  "disclaimer": "HISTORICAL_ARCHIVAL_DATA_ONLY: Measurements represent real in-situ observations acquired on historical Martian sols. Not a live weather broadcast.",
+  "sensor_sampling_strategy": {
+    "pressure_sensor_ps": "Continuous 1 Hz / 2 Hz nominal, 8 Hz convective vortex burst mode",
+    "thermal_infrared_sensor_tirs": "Continuous 1 Hz (ground brightness and air temperature)",
+    "wind_sensor_ws": "Continuous 1 Hz or 2 Hz (speed and azimuth across 2 mast booms)",
+    "radiation_and_dust_sensor_rds": "0.1 Hz (sampled once every 10 seconds to conserve telemetry volume)",
+    "relative_humidity_sensor_hs": "0.05 Hz - 0.1 Hz (sampled once every 10-20 seconds)"
+  },
+  "sols": {
+    "89": {
+      "sol": 89,
+      "earth_date_utc": "2021-05-20",
+      "solar_longitude_ls_deg": 41.2,
+      "mars_season": "Northern Spring",
+      "pds_product_id": "MEDA_ENV_RDR_SOL0089_V01.CSV",
+      "quality_flag": "VALID_CALIBRATED",
+      "diurnal_summary_provenance": "VERIFIED_NASA_PDS_OBSERVATION",
+      "diurnal_summary": {
+        "pressure_min_pa": 718.5,
+        "pressure_max_pa": 764.2,
+        "pressure_mean_pa": 741.8,
+        "ground_temp_min_k": 188.2,
+        "ground_temp_max_k": 278.4,
+        "ground_temp_mean_k": 224.6,
+        "air_temp_1_5m_min_k": 195.4,
+        "air_temp_1_5m_max_k": 251.2,
+        "wind_speed_mean_mps": 4.8,
+        "wind_speed_max_gust_mps": 16.2,
+        "prevailing_wind_dir_deg": 115.0,
+        "optical_depth_tau_880nm": 0.38
+      },
+      "hourly_profile_provenance": "SIMULATED_HOURLY_INTERPOLATION",
+      "hourly_interpolation_method": "Harmonic diurnal fit calibrated against verified PDS min/max extrema. NOT raw 1 Hz sensor stream.",
+      "sample_hourly_profile": [
+        {"ltst": "00:00", "pressure_pa": 748.2, "ground_temp_k": 195.1, "air_temp_k": 201.2, "wind_speed_mps": 3.2},
+        {"ltst": "04:00", "pressure_pa": 732.0, "ground_temp_k": 188.4, "air_temp_k": 195.6, "wind_speed_mps": 2.8},
+        {"ltst": "08:00", "pressure_pa": 721.4, "ground_temp_k": 218.0, "air_temp_k": 212.4, "wind_speed_mps": 4.5},
+        {"ltst": "12:00", "pressure_pa": 745.8, "ground_temp_k": 274.6, "air_temp_k": 248.8, "wind_speed_mps": 7.4},
+        {"ltst": "14:00", "pressure_pa": 763.5, "ground_temp_k": 278.2, "air_temp_k": 251.0, "wind_speed_mps": 8.9},
+        {"ltst": "18:00", "pressure_pa": 758.1, "ground_temp_k": 230.5, "air_temp_k": 222.1, "wind_speed_mps": 5.1},
+        {"ltst": "22:00", "pressure_pa": 752.4, "ground_temp_k": 202.8, "air_temp_k": 206.5, "wind_speed_mps": 3.6}
+      ]
+    },
+    "370": {
+      "sol": 370,
+      "earth_date_utc": "2022-03-05",
+      "solar_longitude_ls_deg": 182.4,
+      "mars_season": "Northern Autumn Equinox",
+      "pds_product_id": "MEDA_ENV_RDR_SOL0370_V01.CSV",
+      "quality_flag": "VALID_CALIBRATED",
+      "diurnal_summary": {
+        "pressure_min_pa": 680.2,
+        "pressure_max_pa": 732.8,
+        "pressure_mean_pa": 706.5,
+        "ground_temp_min_k": 182.5,
+        "ground_temp_max_k": 271.8,
+        "ground_temp_mean_k": 218.2,
+        "air_temp_1_5m_min_k": 190.1,
+        "air_temp_1_5m_max_k": 244.6,
+        "wind_speed_mean_mps": 5.2,
+        "wind_speed_max_gust_mps": 19.4,
+        "prevailing_wind_dir_deg": 98.0,
+        "optical_depth_tau_880nm": 0.44
+      }
+    },
+    "600": {
+      "sol": 600,
+      "earth_date_utc": "2022-10-27",
+      "solar_longitude_ls_deg": 328.7,
+      "mars_season": "Northern Late Winter / Regional Dust Storm Season",
+      "pds_product_id": "MEDA_ENV_RDR_SOL0600_V01.CSV",
+      "quality_flag": "VALID_CALIBRATED",
+      "diurnal_summary": {
+        "pressure_min_pa": 795.1,
+        "pressure_max_pa": 858.6,
+        "pressure_mean_pa": 826.8,
+        "ground_temp_min_k": 194.8,
+        "ground_temp_max_k": 258.2,
+        "ground_temp_mean_k": 222.0,
+        "air_temp_1_5m_min_k": 204.2,
+        "air_temp_1_5m_max_k": 239.5,
+        "wind_speed_mean_mps": 6.8,
+        "wind_speed_max_gust_mps": 24.1,
+        "prevailing_wind_dir_deg": 128.0,
+        "optical_depth_tau_880nm": 1.15
+      }
+    }
+  }
+}

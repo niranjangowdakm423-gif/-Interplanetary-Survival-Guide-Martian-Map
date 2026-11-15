@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+.DS_Store
+ARES-NAV-P2.1-HANDOVER.zip

@@ -1,0 +1,102 @@
+{
+  "capabilities": {
+    "ctx_5m": {
+      "layer_id": "CTX_beta01_uncontrolled_5m_Caltech",
+      "capabilities_url": "https://trek.nasa.gov/tiles/Mars/EQ/CTX_beta01_uncontrolled_5m_Caltech/1.0.0/WMTSCapabilities.xml",
+      "template": "https://astro.arcgis.com/arcgis/rest/services/OnMars/CTX/MapServer/tile/{TileMatrix}/{TileRow}/{TileCol}",
+      "status": "LIVE_VERIFIED"
+    },
+    "mola_hillshade": {
+      "layer_id": "Mars_MGS_MOLA_ClrShade_merge_global_463m",
+      "capabilities_url": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/WMTSCapabilities.xml",
+      "template": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0//{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg",
+      "status": "LIVE_VERIFIED"
+    }
+  },
+  "sites": {
+    "jezero": {
+      "ctx_5m": {
+        "local_mosaic_url": "nasa_tiles/jezero_ctx_5m_z5.jpg",
+        "zoom": 5,
+        "origin_tile_row": 12,
+        "origin_tile_col": 45,
+        "source_tile_urls": []
+      },
+      "mola_hillshade": {
+        "local_mosaic_url": "nasa_tiles/jezero_mola_hillshade_z5.jpg",
+        "zoom": 5,
+        "origin_tile_row": 12,
+        "origin_tile_col": 45,
+        "source_tile_urls": [
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/12/45.jpg",
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/12/46.jpg",
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/13/45.jpg",
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/13/46.jpg"
+        ]
+      },
+      "themis_day_ir": {
+        "local_mosaic_url": "nasa_tiles/jezero_themis_day_ir_z5.jpg",
+        "zoom": 5,
+        "origin_tile_row": 12,
+        "origin_tile_col": 45,
+        "source_tile_urls": []
+      }
+    },
+    "melas": {
+      "ctx_5m": {
+        "local_mosaic_url": "nasa_tiles/melas_ctx_5m_z5.jpg",
+        "zoom": 5,
+        "origin_tile_row": 17,
+        "origin_tile_col": 18,
+        "source_tile_urls": []
+      },
+      "mola_hillshade": {
+        "local_mosaic_url": "nasa_tiles/melas_mola_hillshade_z5.jpg",
+        "zoom": 5,
+        "origin_tile_row": 17,
+        "origin_tile_col": 18,
+        "source_tile_urls": [
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/17/18.jpg",
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/17/19.jpg",
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/18/18.jpg",
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/18/19.jpg"
+        ]
+      },
+      "themis_day_ir": {
+        "local_mosaic_url": "nasa_tiles/melas_themis_day_ir_z5.jpg",
+        "zoom": 5,
+        "origin_tile_row": 17,
+        "origin_tile_col": 18,
+        "source_tile_urls": []
+      }
+    },
+    "arcadia": {
+      "ctx_5m": {
+        "local_mosaic_url": "nasa_tiles/arcadia_ctx_5m_z5.jpg",
+        "zoom": 5,
+        "origin_tile_row": 9,
+        "origin_tile_col": 1,
+        "source_tile_urls": []
+      },
+      "mola_hillshade": {
+        "local_mosaic_url": "nasa_tiles/arcadia_mola_hillshade_z5.jpg",
+        "zoom": 5,
+        "origin_tile_row": 9,
+        "origin_tile_col": 1,
+        "source_tile_urls": [
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/9/1.jpg",
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/9/2.jpg",
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/10/1.jpg",
+          "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/5/10/2.jpg"
+        ]
+      },
+      "themis_day_ir": {
+        "local_mosaic_url": "nasa_tiles/arcadia_themis_day_ir_z5.jpg",
+        "zoom": 5,
+        "origin_tile_row": 9,
+        "origin_tile_col": 1,
+        "source_tile_urls": []
+      }
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "pds_dataset_id": "MSL-M-RAD-3-RDR-V1.0",
+  "index_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0/INDEX/INDEX.TAB",
+  "total_rdr_files": 5570,
+  "records": [
+    {
+      "volume_id": "DATA_SET_ID",
+      "file_spec": "FILE_SPECIFICATION_NAME",
+      "product_id": "PRODUCT_ID",
+      "start_time": "VOLUME_ID",
+      "stop_time": "PRODUCT_CREATION_TIME",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0/FILE_SPECIFICATION_NAME"
+    },
+    {
+      "volume_id": "MSL-M-RAD-3-RDR-V1.0",
+      "file_spec": "/DATA/SOL_00450_00583/RAD_RDR_2013_318_12_01_0453_V00.LBL",
+      "product_id": "RAD_RDR_2013_318_12_01_0453_V00",
+      "start_time": "MSLRAD_1002",
+      "stop_time": "2014-06-27T19:29:44",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0//DATA/SOL_00450_00583/RAD_RDR_2013_318_12_01_0453_V00.LBL"
+    },
+    {
+      "volume_id": "MSL-M-RAD-3-RDR-V1.0",
+      "file_spec": "/DATA/SOL_00450_00583/RAD_RDR_2013_319_01_29_0454_V00.LBL",
+      "product_id": "RAD_RDR_2013_319_01_29_0454_V00",
+      "start_time": "MSLRAD_1002",
+      "stop_time": "2014-06-27T19:30:51",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0//DATA/SOL_00450_00583/RAD_RDR_2013_319_01_29_0454_V00.LBL"
+    },
+    {
+      "volume_id": "MSL-M-RAD-3-RDR-V1.0",
+      "file_spec": "/DATA/SOL_00450_00583/RAD_RDR_2013_320_02_17_0455_V00.LBL",
+      "product_id": "RAD_RDR_2013_320_02_17_0455_V00",
+      "start_time": "MSLRAD_1002",
+      "stop_time": "2014-06-27T19:30:52",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0//DATA/SOL_00450_00583/RAD_RDR_2013_320_02_17_0455_V00.LBL"
+    },
+    {
+      "volume_id": "MSL-M-RAD-3-RDR-V1.0",
+      "file_spec": "/DATA/SOL_00450_00583/RAD_RDR_2013_321_02_50_0456_V00.LBL",
+      "product_id": "RAD_RDR_2013_321_02_50_0456_V00",
+      "start_time": "MSLRAD_1002",
+      "stop_time": "2014-06-27T19:33:01",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0//DATA/SOL_00450_00583/RAD_RDR_2013_321_02_50_0456_V00.LBL"
+    },
+    {
+      "volume_id": "MSL-M-RAD-3-RDR-V1.0",
+      "file_spec": "/DATA/SOL_00450_00583/RAD_RDR_2013_322_03_31_0457_V00.LBL",
+      "product_id": "RAD_RDR_2013_322_03_31_0457_V00",
+      "start_time": "MSLRAD_1002",
+      "stop_time": "2014-06-27T19:33:04",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0//DATA/SOL_00450_00583/RAD_RDR_2013_322_03_31_0457_V00.LBL"
+    },
+    {
+      "volume_id": "MSL-M-RAD-3-RDR-V1.0",
+      "file_spec": "/DATA/SOL_00450_00583/RAD_RDR_2013_327_18_11_0462_V00.LBL",
+      "product_id": "RAD_RDR_2013_327_18_11_0462_V00",
+      "start_time": "MSLRAD_1002",
+      "stop_time": "2014-06-27T19:34:06",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0//DATA/SOL_00450_00583/RAD_RDR_2013_327_18_11_0462_V00.LBL"
+    },
+    {
+      "volume_id": "MSL-M-RAD-3-RDR-V1.0",
+      "file_spec": "/DATA/SOL_00450_00583/RAD_RDR_2013_328_07_22_0463_V00.LBL",
+      "product_id": "RAD_RDR_2013_328_07_22_0463_V00",
+      "start_time": "MSLRAD_1002",
+      "stop_time": "2014-06-27T19:35:17",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0//DATA/SOL_00450_00583/RAD_RDR_2013_328_07_22_0463_V00.LBL"
+    },
+    {
+      "volume_id": "MSL-M-RAD-3-RDR-V1.0",
+      "file_spec": "/DATA/SOL_00450_00583/RAD_RDR_2013_329_08_12_0464_V00.LBL",
+      "product_id": "RAD_RDR_2013_329_08_12_0464_V00",
+      "start_time": "MSLRAD_1002",
+      "stop_time": "2014-06-27T19:37:24",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0//DATA/SOL_00450_00583/RAD_RDR_2013_329_08_12_0464_V00.LBL"
+    },
+    {
+      "volume_id": "MSL-M-RAD-3-RDR-V1.0",
+      "file_spec": "/DATA/SOL_00450_00583/RAD_RDR_2013_330_08_56_0465_V00.LBL",
+      "product_id": "RAD_RDR_2013_330_08_56_0465_V00",
+      "start_time": "MSLRAD_1002",
+      "stop_time": "2014-06-27T19:37:27",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0//DATA/SOL_00450_00583/RAD_RDR_2013_330_08_56_0465_V00.LBL"
+    },
+    {
+      "volume_id": "MSL-M-RAD-3-RDR-V1.0",
+      "file_spec": "/DATA/SOL_00450_00583/RAD_RDR_2013_331_09_34_0466_V00.LBL",
+      "product_id": "RAD_RDR_2013_331_09_34_0466_V00",
+      "start_time": "MSLRAD_1002",
+      "stop_time": "2014-06-27T19:39:36",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0//DATA/SOL_00450_00583/RAD_RDR_2013_331_09_34_0466_V00.LBL"
+    },
+    {
+      "volume_id": "MSL-M-RAD-3-RDR-V1.0",
+      "file_spec": "/DATA/SOL_00450_00583/RAD_RDR_2013_332_10_00_0467_V00.LBL",
+      "product_id": "RAD_RDR_2013_332_10_00_0467_V00",
+      "start_time": "MSLRAD_1002",
+      "stop_time": "2014-06-27T19:41:50",
+      "download_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0//DATA/SOL_00450_00583/RAD_RDR_2013_332_10_00_0467_V00.LBL"
+    }
+  ],
+  "measured_dosimetry": {
+    "instrument": "MSL Radiation Assessment Detector (RAD) \u2014 Detector B (Tissue-Equivalent Plastic Scintillator)",
+    "reference_citation": "Hassler et al. (2014), Mars' Surface Radiation Environment Measured with the Mars Science Laboratory's Curiosity Rover, Science 343(6169)",
+    "gcr_absorbed_dose_rate_mGy_day": 0.21,
+    "gcr_dose_equivalent_uSv_day": 640.0,
+    "gcr_dose_equivalent_uSv_hr": 26.67,
+    "average_quality_factor_Q": 3.05,
+    "sep_event_peak_uSv_hr": 195.0,
+    "pressure_attenuation_coeff_pct_per_100Pa": 3.8
+  }
+}
