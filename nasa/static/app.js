@@ -511,7 +511,7 @@ function render2DMap() {
   const site = state.siteData.site;
   const N = site.grid_size;
 
-  ctx.fillStyle = "#06090e";
+  ctx.fillStyle = "#0F1604";
   ctx.fillRect(0, 0, W, H);
 
   if (state.layerCanvasCache) {
@@ -600,9 +600,9 @@ function render2DMap() {
   const activeAbort = state.abortRoute || (state.speStorm && state.routeResult ? state.routeResult.emergency_abort : null);
   if (activeAbort && activeAbort.path) {
     ctx.save();
-    ctx.strokeStyle = "#27d7ff";
+    ctx.strokeStyle = "#ff4757";
     ctx.lineWidth = 3.2;
-    ctx.shadowColor = "#27d7ff";
+    ctx.shadowColor = "#ff4757";
     ctx.shadowBlur = 10;
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
@@ -618,9 +618,9 @@ function render2DMap() {
   // 3. Draw Primary Anisotropic A* Safe EVA Route
   if (state.routeResult && state.routeResult.path) {
     ctx.save();
-    ctx.strokeStyle = "#18e299";
+    ctx.strokeStyle = "#BAEB5B";
     ctx.lineWidth = 3.8;
-    ctx.shadowColor = "#18e299";
+    ctx.shadowColor = "#BAEB5B";
     ctx.shadowBlur = 12;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
@@ -639,15 +639,15 @@ function render2DMap() {
   ctx.save();
   ctx.beginPath();
   ctx.arc(habPos.x, habPos.y, 16, 0, Math.PI * 2);
-  ctx.fillStyle = "rgba(39, 215, 255, 0.18)";
+  ctx.fillStyle = "rgba(186, 235, 91, 0.20)";
   ctx.fill();
   ctx.lineWidth = 2;
-  ctx.strokeStyle = "#27d7ff";
+  ctx.strokeStyle = "#BAEB5B";
   ctx.stroke();
 
   ctx.beginPath();
   ctx.arc(habPos.x, habPos.y, 6, 0, Math.PI * 2);
-  ctx.fillStyle = "#27d7ff";
+  ctx.fillStyle = "#BAEB5B";
   ctx.fill();
   ctx.font = "bold 11px 'Inter', sans-serif";
   ctx.fillStyle = "#ffffff";
@@ -939,22 +939,22 @@ function renderProfileChart() {
   if (state.profileTab === "elev_slope") {
     primarySeries = prof.map((p) => p.elevation_m);
     secondarySeries = prof.map((p) => p.slope_deg);
-    primaryColor = "#18e299";
-    secondaryColor = "#ff5e2b";
+    primaryColor = "#BAEB5B";
+    secondaryColor = "#d4f27a";
     unitLeft = "m";
     unitRight = "°";
   } else if (state.profileTab === "metabolic_o2") {
     primarySeries = prof.map((p) => p.metabolic_watts);
     secondarySeries = prof.map((p) => p.cum_o2_l);
-    primaryColor = "#ffab2e";
-    secondaryColor = "#27d7ff";
+    primaryColor = "#BAEB5B";
+    secondaryColor = "#d4f27a";
     unitLeft = "W";
     unitRight = "L O₂";
   } else {
     primarySeries = prof.map((p) => p.radiation_uSv_hr);
     secondarySeries = prof.map((p) => p.comm_los_pct);
-    primaryColor = "#b56bff";
-    secondaryColor = "#18e299";
+    primaryColor = "#ff4757";
+    secondaryColor = "#BAEB5B";
     unitLeft = "µSv/h";
     unitRight = "%";
   }
@@ -965,7 +965,7 @@ function renderProfileChart() {
   const max2 = Math.max(...secondarySeries, 10);
 
   // Horizontal grid lines
-  pctx.strokeStyle = "rgba(255, 255, 255, 0.07)";
+  pctx.strokeStyle = "rgba(65, 67, 59, 0.55)";
   pctx.lineWidth = 1;
   for (let i = 0; i <= 3; i++) {
     const y = padT + (i / 3) * plotH;

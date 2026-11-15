@@ -524,12 +524,12 @@ const P1_MISSION_PLANNING = (() => {
   }
 
   function _positionPanel(panel) {
-    // Position floating panel near the action bar
-    const bar = document.getElementById('p1-action-bar');
-    if (!bar) return;
-    const rect = bar.getBoundingClientRect();
-    panel.style.top = `${rect.bottom + 8}px`;
-    panel.style.left = `${Math.max(8, rect.left)}px`;
+    // Gracefully center the floating panel in the viewport
+    panel.style.top = '50%';
+    panel.style.left = '50%';
+    panel.style.transform = 'translate(-50%, -50%)';
+    panel.style.maxHeight = '82vh';
+    panel.style.width = 'min(780px, 92vw)';
   }
 
   // ─── CSS Injection ────────────────────────────────────────────────────────
@@ -541,31 +541,35 @@ const P1_MISSION_PLANNING = (() => {
       /* ── P1 Action Bar ── */
       .p1-action-bar {
         display: none;
-        gap: 4px;
-        padding: 6px 8px 4px;
-        border-top: 1px solid rgba(255,255,255,0.08);
-        background: rgba(10,15,30,0.5);
+        gap: 5px;
+        padding: 6px 4px;
+        margin-top: 6px;
+        border-top: 1px solid var(--slate-olive, #41433B);
+        background: transparent;
         flex-wrap: wrap;
       }
       .p1-action-bar.p1-active { display: flex; }
       .p1-panel-btn {
         flex: 1;
-        min-width: 90px;
+        min-width: 85px;
         padding: 5px 8px;
-        background: rgba(24, 226, 153, 0.08);
-        border: 1px solid rgba(24, 226, 153, 0.25);
-        border-radius: 5px;
-        color: #18e299;
+        background: rgba(65, 67, 59, 0.35);
+        border: 1px solid var(--slate-olive, #41433B);
+        border-radius: 4px;
+        color: var(--text-main, #F1F2EF);
         font-size: 10px;
         font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
         cursor: pointer;
         transition: all 0.15s;
-        letter-spacing: 0.03em;
+        letter-spacing: 0.02em;
+        text-align: center;
       }
       .p1-panel-btn:hover, .p1-panel-btn.p1-btn-active {
-        background: rgba(24, 226, 153, 0.18);
-        border-color: #18e299;
-        color: #fff;
+        background: var(--accent-lime, #BAEB5B);
+        border-color: var(--accent-lime, #BAEB5B);
+        color: #0F1604;
+        box-shadow: 0 0 10px rgba(186, 235, 91, 0.3);
       }
 
       /* ── Feasibility Banner ── */
@@ -573,37 +577,43 @@ const P1_MISSION_PLANNING = (() => {
         display: flex;
         align-items: center;
         gap: 7px;
-        padding: 5px 8px;
-        background: rgba(10,15,30,0.7);
-        border-top: 1px solid rgba(255,255,255,0.08);
+        padding: 6px 9px;
+        background: rgba(15, 22, 4, 0.7);
+        border: 1px solid var(--slate-olive, #41433B);
+        border-radius: 5px;
+        margin-top: 6px;
         font-size: 10px;
         font-family: 'JetBrains Mono', monospace;
       }
       .p1-feasibility-banner.hidden { display: none; }
-      #p1-verdict-text { font-weight: 700; letter-spacing: 0.08em; }
-      .p1-verdict-detail { flex: 1; color: #8b9bb4; }
+      #p1-verdict-text { font-weight: 700; letter-spacing: 0.08em; color: var(--accent-lime, #BAEB5B); }
+      .p1-verdict-detail { flex: 1; color: var(--text-muted, #a7ab9e); }
       .p1-verdict-btn {
         padding: 3px 8px;
-        background: transparent;
-        border: 1px solid rgba(139,155,180,0.3);
+        background: rgba(65, 67, 59, 0.35);
+        border: 1px solid var(--slate-olive, #41433B);
         border-radius: 4px;
-        color: #8b9bb4;
+        color: var(--accent-lime, #BAEB5B);
         font-size: 10px;
         cursor: pointer;
         font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
       }
-      .p1-verdict-btn:hover { border-color: #18e299; color: #18e299; }
+      .p1-verdict-btn:hover { background: var(--accent-lime, #BAEB5B); color: #0F1604; }
 
       /* ── Floating Panels ── */
       .p1-panel {
         position: fixed;
-        z-index: 9800;
-        width: min(680px, 95vw);
-        max-height: 75vh;
-        background: #0d1117;
-        border: 1px solid rgba(24, 226, 153, 0.3);
+        z-index: 9999;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(780px, 92vw);
+        max-height: 82vh;
+        background: #141d08;
+        border: 1px solid var(--accent-lime, #BAEB5B);
         border-radius: 10px;
-        box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+        box-shadow: 0 16px 50px rgba(0,0,0,0.85), 0 0 25px rgba(186, 235, 91, 0.2);
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -615,37 +625,41 @@ const P1_MISSION_PLANNING = (() => {
         align-items: center;
         justify-content: space-between;
         padding: 10px 14px;
-        background: rgba(24, 226, 153, 0.07);
-        border-bottom: 1px solid rgba(24, 226, 153, 0.15);
+        background: rgba(186, 235, 91, 0.12);
+        border-bottom: 1px solid rgba(186, 235, 91, 0.25);
         flex-shrink: 0;
       }
       .p1-panel-title {
-        font-size: 11px;
-        font-weight: 700;
-        color: #18e299;
+        font-size: 11.5px;
+        font-weight: 800;
+        color: var(--accent-lime, #BAEB5B);
         letter-spacing: 0.06em;
         font-family: 'JetBrains Mono', monospace;
       }
       .p1-panel-close {
         background: transparent;
-        border: none;
-        color: #8b9bb4;
+        border: 1px solid var(--slate-olive, #41433B);
+        color: var(--text-main, #F1F2EF);
         cursor: pointer;
         font-size: 14px;
         line-height: 1;
-        padding: 2px 4px;
-        border-radius: 3px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
       }
-      .p1-panel-close:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
+      .p1-panel-close:hover { color: #0F1604; background: var(--accent-lime, #BAEB5B); border-color: var(--accent-lime, #BAEB5B); }
       .p1-panel-body {
         overflow-y: auto;
-        padding: 12px 14px;
+        padding: 14px 16px;
         font-size: 11px;
-        color: #cdd6f4;
+        color: var(--text-main, #F1F2EF);
         font-family: 'JetBrains Mono', monospace;
         flex: 1;
       }
-      .p1-empty { color: #4a5568; text-align: center; padding: 24px 0; }
+      .p1-empty { color: var(--text-muted, #a7ab9e); text-align: center; padding: 24px 0; }
 
       /* ── Matrix Table ── */
       .p1-table-wrap { overflow-x: auto; border-radius: 6px; }

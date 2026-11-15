@@ -459,255 +459,275 @@
         </div>
       </section>
 
-      <!-- 2. MAP LAYERS -->
-      <section class="panel-section" id="section-layers">
-        <div class="section-header">
-          <span class="section-index" aria-hidden="true">02</span>
-          <h2 class="expert-label" data-expert="NASA DATASET LAYERS" data-beginner="MAP VIEW">NASA DATASET LAYERS</h2>
-          <span class="badge-mini expert-only">7 FUSED LAYERS</span>
-          <button class="section-help-btn" data-tooltip="Switch between different NASA scientific data views. Each layer visualizes a different property of the Martian surface." aria-label="Help">?</button>
-        </div>
+      <!-- LEFT PANEL SEGMENTED NAVIGATION TABS -->
+      <nav class="panel-nav-tabs" role="tablist" aria-label="Mission Controls">
+        <button class="panel-nav-tab active" data-pane="pane-layers" role="tab" aria-selected="true">🛰️ Layers</button>
+        <button class="panel-nav-tab" data-pane="pane-route" role="tab" aria-selected="false">🧭 Traverse AI</button>
+        <button class="panel-nav-tab" data-pane="pane-overlays" role="tab" aria-selected="false">⚙️ Overlays</button>
+      </nav>
 
-        <!-- Beginner simplified layer picker -->
-        <div class="beginner-layer-picker hidden" id="beginner-layer-picker">
-          <div class="blp-grid">
-            <button class="blp-btn active" data-layer="composite" aria-pressed="true">
-              <span class="blp-icon">🗺️</span>
-              <strong>Terrain</strong>
-              <span>Overview with hazards</span>
+      <!-- PANE 1: MAP LAYERS -->
+      <div class="panel-tab-pane active" id="pane-layers">
+        <section class="panel-section" id="section-layers">
+          <div class="section-header">
+            <span class="section-index" aria-hidden="true">02</span>
+            <h2 class="expert-label" data-expert="NASA DATASET LAYERS" data-beginner="MAP VIEW">NASA DATASET LAYERS</h2>
+            <span class="badge-mini expert-only">7 FUSED LAYERS</span>
+            <button class="section-help-btn" data-tooltip="Switch between different NASA scientific data views. Each layer visualizes a different property of the Martian surface." aria-label="Help">?</button>
+          </div>
+
+          <!-- Beginner simplified layer picker -->
+          <div class="beginner-layer-picker hidden" id="beginner-layer-picker">
+            <div class="blp-grid">
+              <button class="blp-btn active" data-layer="composite" aria-pressed="true">
+                <span class="blp-icon">🗺️</span>
+                <strong>Terrain</strong>
+                <span>Overview with hazards</span>
+              </button>
+              <button class="blp-btn" data-layer="risk_heatmap" aria-pressed="false">
+                <span class="blp-icon">⚠️</span>
+                <strong>Risk Heatmap</strong>
+                <span>Multi-hazard zones</span>
+              </button>
+              <button class="blp-btn" data-layer="slope" aria-pressed="false">
+                <span class="blp-icon">⛰️</span>
+                <strong>Steepness</strong>
+                <span>How steep the ground is</span>
+              </button>
+              <button class="blp-btn" data-layer="radiation" aria-pressed="false">
+                <span class="blp-icon">☢️</span>
+                <strong>Radiation</strong>
+                <span>Radiation exposure</span>
+              </button>
+              <button class="blp-btn" data-layer="hydration" aria-pressed="false">
+                <span class="blp-icon">💧</span>
+                <strong>Water Ice</strong>
+                <span>Ice &amp; hydration</span>
+              </button>
+              <button class="blp-btn" data-layer="mineral" aria-pressed="false">
+                <span class="blp-icon">🔬</span>
+                <strong>Minerals</strong>
+                <span>Science targets</span>
+              </button>
+              <button class="blp-btn" data-layer="comm_los" aria-pressed="false">
+                <span class="blp-icon">📡</span>
+                <strong>Radio Link</strong>
+                <span>Comms with base</span>
+              </button>
+              <button class="blp-btn" data-layer="habitat_suitability" aria-pressed="false">
+                <span class="blp-icon">🏠</span>
+                <strong>Habitat Siting</strong>
+                <span>Best basecamp locations</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Expert full layer grid -->
+          <div class="layer-grid expert-only" id="layer-buttons">
+            <button class="layer-btn active" data-layer="composite" aria-pressed="true">
+              <span class="layer-dot dot-composite" aria-hidden="true"></span>
+              <div class="layer-meta">
+                <strong>Tactical Survival Composite</strong>
+                <span>MOLA Hillshade + Slope + Hazards</span>
+              </div>
+              <span class="prov-badge prov-verified" title="Real MOLA raster tiles for Jezero/Melas/Arcadia; derived for other sites">Verified</span>
             </button>
-            <button class="blp-btn" data-layer="risk_heatmap" aria-pressed="false">
-              <span class="blp-icon">⚠️</span>
-              <strong>Risk Heatmap</strong>
-              <span>Multi-hazard zones</span>
+            <button class="layer-btn" data-layer="habitat_suitability" aria-pressed="false">
+              <span class="layer-dot" style="background: #BAEB5B" aria-hidden="true"></span>
+              <div class="layer-meta">
+                <strong>MCDA Habitat Suitability (P2.2)</strong>
+                <span>AHP Siting + 800m HLS Blast Standoff</span>
+              </div>
+              <span class="prov-badge prov-calculated" title="Multi-Criteria Decision Analysis (AHP CR < 0.10) across Slope, Boulders, Solar, ISRU, Horizon Masking, and Comms">Calculated</span>
             </button>
-            <button class="blp-btn" data-layer="slope" aria-pressed="false">
-              <span class="blp-icon">⛰️</span>
-              <strong>Steepness</strong>
-              <span>How steep the ground is</span>
+            <button class="layer-btn" data-layer="risk_heatmap" aria-pressed="false">
+              <span class="layer-dot" style="background: #ea580c" aria-hidden="true"></span>
+              <div class="layer-meta">
+                <strong>Environmental Risk Heatmap</strong>
+                <span>Composite: Slope + Boulder + Rad + Comm</span>
+              </div>
+              <span class="prov-badge prov-calculated" title="Calculated multi-hazard index weighted across MOLA topography, HiRISE boulders, MSL RAD, and UHF RF shadows">Calculated</span>
             </button>
-            <button class="blp-btn" data-layer="radiation" aria-pressed="false">
-              <span class="blp-icon">☢️</span>
-              <strong>Radiation</strong>
-              <span>Radiation exposure</span>
+            <button class="layer-btn" data-layer="elevation" aria-pressed="false">
+              <span class="layer-dot dot-elev" aria-hidden="true"></span>
+              <div class="layer-meta">
+                <strong>MOLA Topographic DEM</strong>
+                <span>Laser Altimeter Elevation + Contours</span>
+              </div>
+              <span class="prov-badge prov-verified">Verified</span>
             </button>
-            <button class="blp-btn" data-layer="hydration" aria-pressed="false">
-              <span class="blp-icon">💧</span>
-              <strong>Water Ice</strong>
-              <span>Ice &amp; hydration</span>
+            <button class="layer-btn" data-layer="slope" aria-pressed="false">
+              <span class="layer-dot dot-slope" aria-hidden="true"></span>
+              <div class="layer-meta">
+                <strong>Geodesic Slope Hazard (°)</strong>
+                <span>NASA STD-3001 Traversability (&gt;15° Risk)</span>
+              </div>
+              <span class="prov-badge prov-calculated">Calculated</span>
             </button>
-            <button class="blp-btn" data-layer="mineral" aria-pressed="false">
-              <span class="blp-icon">🔬</span>
-              <strong>Minerals</strong>
-              <span>Science targets</span>
+            <button class="layer-btn" data-layer="boulder" aria-pressed="false">
+              <span class="layer-dot dot-boulder" aria-hidden="true"></span>
+              <div class="layer-meta">
+                <strong>HiRISE Boulder &amp; Roughness</strong>
+                <span>Sub-meter Talus &amp; Aeolian Slippage</span>
+              </div>
+              <span class="prov-badge prov-partial" title="Real HiRISE imagery for Jezero; estimated from elevation for other sites">Partial</span>
             </button>
-            <button class="blp-btn" data-layer="comm_los" aria-pressed="false">
-              <span class="blp-icon">📡</span>
-              <strong>Radio Link</strong>
-              <span>Comms with base</span>
+            <button class="layer-btn" data-layer="mineral" aria-pressed="false">
+              <span class="layer-dot dot-mineral" aria-hidden="true"></span>
+              <div class="layer-meta">
+                <strong>CRISM Spectral Mineralogy</strong>
+                <span>Smectite Clays, Carbonates, Silica</span>
+              </div>
+              <span class="prov-badge prov-simulated" title="CRISM catalog records real; mineral grids synthesized from POI locations">Simulated</span>
             </button>
-            <button class="blp-btn" data-layer="habitat_suitability" aria-pressed="false">
-              <span class="blp-icon">🏠</span>
-              <strong>Habitat Siting</strong>
-              <span>Best basecamp locations</span>
+            <button class="layer-btn" data-layer="hydration" aria-pressed="false">
+              <span class="layer-dot dot-hydration" aria-hidden="true"></span>
+              <div class="layer-meta">
+                <strong>SHARAD / Neutron H₂O Ice</strong>
+                <span>ISRU Extractable Water Equivalent %</span>
+              </div>
+              <span class="prov-badge prov-simulated" title="Modeled from SHARAD catalog data; not pixel-precise">Simulated</span>
+            </button>
+            <button class="layer-btn" data-layer="radiation" aria-pressed="false">
+              <span class="layer-dot dot-rad" aria-hidden="true"></span>
+              <div class="layer-meta">
+                <strong>Odyssey / RAD Ionizing Dose</strong>
+                <span>GCR &amp; Solar Particle Shielding Map</span>
+              </div>
+              <span class="prov-badge prov-calculated" title="Calibrated to real MSL RAD 26.67 µSv/hr measurement; modeled per site">Calculated</span>
+            </button>
+            <button class="layer-btn" data-layer="comm_los" aria-pressed="false">
+              <span class="layer-dot dot-comm" aria-hidden="true"></span>
+              <div class="layer-meta">
+                <strong>UHF Comm Line-of-Sight</strong>
+                <span>3D Viewshed from Habitat Antenna Mast</span>
+              </div>
+              <span class="prov-badge prov-calculated">Calculated</span>
             </button>
           </div>
-        </div>
 
-        <!-- Expert full layer grid -->
-        <div class="layer-grid expert-only" id="layer-buttons">
-          <button class="layer-btn active" data-layer="composite" aria-pressed="true">
-            <span class="layer-dot dot-composite" aria-hidden="true"></span>
-            <div class="layer-meta">
-              <strong>Tactical Survival Composite</strong>
-              <span>MOLA Hillshade + Slope + Hazards</span>
+          <!-- User layers (shown when user datasets exist) -->
+          <div id="user-layer-section" class="user-layer-section hidden">
+            <div class="user-layer-header">
+              <span>User Observations</span>
+              <span class="prov-badge prov-unverified">Unverified</span>
             </div>
-            <span class="prov-badge prov-verified" title="Real MOLA raster tiles for Jezero/Melas/Arcadia; derived for other sites">Verified</span>
-          </button>
-          <button class="layer-btn" data-layer="habitat_suitability" aria-pressed="false">
-            <span class="layer-dot" style="background: #10b981" aria-hidden="true"></span>
-            <div class="layer-meta">
-              <strong>MCDA Habitat Suitability (P2.2)</strong>
-              <span>AHP Siting + 800m HLS Blast Standoff</span>
-            </div>
-            <span class="prov-badge prov-calculated" title="Multi-Criteria Decision Analysis (AHP CR < 0.10) across Slope, Boulders, Solar, ISRU, Horizon Masking, and Comms">Calculated</span>
-          </button>
-          <button class="layer-btn" data-layer="risk_heatmap" aria-pressed="false">
-            <span class="layer-dot" style="background: #ea580c" aria-hidden="true"></span>
-            <div class="layer-meta">
-              <strong>Environmental Risk Heatmap</strong>
-              <span>Composite: Slope + Boulder + Rad + Comm</span>
-            </div>
-            <span class="prov-badge prov-calculated" title="Calculated multi-hazard index weighted across MOLA topography, HiRISE boulders, MSL RAD, and UHF RF shadows">Calculated</span>
-          </button>
-          <button class="layer-btn" data-layer="elevation" aria-pressed="false">
-            <span class="layer-dot dot-elev" aria-hidden="true"></span>
-            <div class="layer-meta">
-              <strong>MOLA Topographic DEM</strong>
-              <span>Laser Altimeter Elevation + Contours</span>
-            </div>
-            <span class="prov-badge prov-verified">Verified</span>
-          </button>
-          <button class="layer-btn" data-layer="slope" aria-pressed="false">
-            <span class="layer-dot dot-slope" aria-hidden="true"></span>
-            <div class="layer-meta">
-              <strong>Geodesic Slope Hazard (°)</strong>
-              <span>NASA STD-3001 Traversability (&gt;15° Risk)</span>
-            </div>
-            <span class="prov-badge prov-calculated">Calculated</span>
-          </button>
-          <button class="layer-btn" data-layer="boulder" aria-pressed="false">
-            <span class="layer-dot dot-boulder" aria-hidden="true"></span>
-            <div class="layer-meta">
-              <strong>HiRISE Boulder &amp; Roughness</strong>
-              <span>Sub-meter Talus &amp; Aeolian Slippage</span>
-            </div>
-            <span class="prov-badge prov-partial" title="Real HiRISE imagery for Jezero; estimated from elevation for other sites">Partial</span>
-          </button>
-          <button class="layer-btn" data-layer="mineral" aria-pressed="false">
-            <span class="layer-dot dot-mineral" aria-hidden="true"></span>
-            <div class="layer-meta">
-              <strong>CRISM Spectral Mineralogy</strong>
-              <span>Smectite Clays, Carbonates, Silica</span>
-            </div>
-            <span class="prov-badge prov-simulated" title="CRISM catalog records real; mineral grids synthesized from POI locations">Simulated</span>
-          </button>
-          <button class="layer-btn" data-layer="hydration" aria-pressed="false">
-            <span class="layer-dot dot-hydration" aria-hidden="true"></span>
-            <div class="layer-meta">
-              <strong>SHARAD / Neutron H₂O Ice</strong>
-              <span>ISRU Extractable Water Equivalent %</span>
-            </div>
-            <span class="prov-badge prov-simulated" title="Modeled from SHARAD catalog data; not pixel-precise">Simulated</span>
-          </button>
-          <button class="layer-btn" data-layer="radiation" aria-pressed="false">
-            <span class="layer-dot dot-rad" aria-hidden="true"></span>
-            <div class="layer-meta">
-              <strong>Odyssey / RAD Ionizing Dose</strong>
-              <span>GCR &amp; Solar Particle Shielding Map</span>
-            </div>
-            <span class="prov-badge prov-calculated" title="Calibrated to real MSL RAD 26.67 µSv/hr measurement; modeled per site">Calculated</span>
-          </button>
-          <button class="layer-btn" data-layer="comm_los" aria-pressed="false">
-            <span class="layer-dot dot-comm" aria-hidden="true"></span>
-            <div class="layer-meta">
-              <strong>UHF Comm Line-of-Sight</strong>
-              <span>3D Viewshed from Habitat Antenna Mast</span>
-            </div>
-            <span class="prov-badge prov-calculated">Calculated</span>
-          </button>
-        </div>
-
-        <!-- User layers (shown when user datasets exist) -->
-        <div id="user-layer-section" class="user-layer-section hidden">
-          <div class="user-layer-header">
-            <span>User Observations</span>
-            <span class="prov-badge prov-unverified">Unverified</span>
+            <div id="user-layer-buttons" class="layer-grid"></div>
           </div>
-          <div id="user-layer-buttons" class="layer-grid"></div>
-        </div>
+        </section>
+      </div>
 
-        <div class="overlay-toggles expert-only">
-          <label class="check-row">
-            <input type="checkbox" id="chk-contours" checked />
-            <span>MOLA Topographic Contours</span>
-          </label>
-          <label class="check-row">
-            <input type="checkbox" id="chk-hazards" checked />
-            <span>Red-Zone Slope/Boulder Hatching</span>
-          </label>
-          <label class="check-row">
-            <input type="checkbox" id="chk-direct-path" checked />
-            <span>Compare vs. Direct Crow-Flies Path</span>
-          </label>
-          <label class="check-row">
-            <input type="checkbox" id="chk-trek-tiles" checked />
-            <span>Blend Real Stitched Mars Trek MOLA Mosaic</span>
-          </label>
-          <label class="check-row">
-            <input type="checkbox" id="chk-ctx-tiles" />
-            <span>Stream Live CTX 5m Mosaic (ArcGIS/Mars Trek)</span>
-          </label>
-          <label class="check-row">
-            <input type="checkbox" id="chk-hirise-strip" />
-            <span>Overlay Real HiRISE RDR Swath (PSP_008650)</span>
-          </label>
-        </div>
-      </section>
-
-      <!-- 3. ROUTE PLANNING -->
-      <section class="panel-section">
-        <div class="section-header">
-          <span class="section-index" aria-hidden="true">03</span>
-          <h2 class="expert-label" data-expert="EVA PATHFINDING AI" data-beginner="ROUTE PLANNING">EVA PATHFINDING AI</h2>
-          <button class="section-help-btn" data-tooltip="ARES-NAV uses a multi-objective A* algorithm to find the safest route between your chosen waypoints, avoiding steep slopes, rough terrain and radiation." aria-label="Help">?</button>
-        </div>
-
-        <!-- Beginner route mode picker -->
-        <div class="beginner-route-modes hidden" id="beginner-route-modes">
-          <p class="beginner-hint">What should the route prioritize?</p>
-          <div class="brm-grid">
-            <button class="brm-btn active" data-mode="safest" aria-pressed="true">
-              <span>🛡️</span><strong>Safest</strong><small>Avoid steep slopes and radiation</small>
-            </button>
-            <button class="brm-btn" data-mode="balanced" aria-pressed="false">
-              <span>⚖️</span><strong>Balanced</strong><small>Balance safety and time</small>
-            </button>
-            <button class="brm-btn" data-mode="science" aria-pressed="false">
-              <span>🔬</span><strong>Science First</strong><small>Visit important science targets</small>
-            </button>
-            <button class="brm-btn" data-mode="fastest" aria-pressed="false">
-              <span>⚡</span><strong>Fastest</strong><small>Get there quickly</small>
-            </button>
+      <!-- PANE 2: ROUTE PLANNING -->
+      <div class="panel-tab-pane" id="pane-route">
+        <section class="panel-section" id="section-route">
+          <div class="section-header">
+            <span class="section-index" aria-hidden="true">03</span>
+            <h2 class="expert-label" data-expert="EVA PATHFINDING AI" data-beginner="ROUTE PLANNING">EVA PATHFINDING AI</h2>
+            <button class="section-help-btn" data-tooltip="ARES-NAV uses a multi-objective A* algorithm to find the safest route between your chosen waypoints, avoiding steep slopes, rough terrain and radiation." aria-label="Help">?</button>
           </div>
-        </div>
 
-        <!-- Expert mode pills -->
-        <div class="mode-pills expert-only" id="mode-selector">
-          <button class="mode-pill active" data-mode="safest" aria-pressed="true" title="Prioritize gentle slopes, low boulder risk, strong UHF comms, and low radiation">🛡️ SAFEST</button>
-          <button class="mode-pill" data-mode="balanced" aria-pressed="false" title="Balance safety, energy expenditure, and science value">⚖️ BALANCED</button>
-          <button class="mode-pill" data-mode="science" aria-pressed="false" title="Route through high-priority CRISM mineral &amp; hydration corridors">🔬 MAX SCIENCE</button>
-          <button class="mode-pill" data-mode="fastest" aria-pressed="false" title="Minimum duration emergency traverse">⚡ FASTEST</button>
-        </div>
-
-        <div class="slider-group expert-only">
-          <div class="slider-label-row">
-            <span>Max Safe Slope Limit (NASA STD-3001)</span>
-            <strong id="lbl-max-slope">15°</strong>
+          <!-- Beginner route mode picker -->
+          <div class="beginner-route-modes hidden" id="beginner-route-modes">
+            <p class="beginner-hint">What should the route prioritize?</p>
+            <div class="brm-grid">
+              <button class="brm-btn active" data-mode="safest" aria-pressed="true">
+                <span>🛡️</span><strong>Safest</strong><small>Avoid steep slopes and radiation</small>
+              </button>
+              <button class="brm-btn" data-mode="balanced" aria-pressed="false">
+                <span>⚖️</span><strong>Balanced</strong><small>Balance safety and time</small>
+              </button>
+              <button class="brm-btn" data-mode="science" aria-pressed="false">
+                <span>🔬</span><strong>Science First</strong><small>Visit important science targets</small>
+              </button>
+              <button class="brm-btn" data-mode="fastest" aria-pressed="false">
+                <span>⚡</span><strong>Fastest</strong><small>Get there quickly</small>
+              </button>
+            </div>
           </div>
-          <input type="range" id="rng-max-slope" min="8" max="28" step="1" value="15" aria-label="Maximum safe slope" />
-        </div>
 
-        <div class="slider-group expert-only">
-          <div class="slider-label-row">
-            <span>Astronaut + xEMU Suit Mass (0.38g)</span>
-            <strong id="lbl-suit-mass">145 kg</strong>
+          <!-- Expert mode pills -->
+          <div class="mode-pills expert-only" id="mode-selector">
+            <button class="mode-pill active" data-mode="safest" aria-pressed="true" title="Prioritize gentle slopes, low boulder risk, strong UHF comms, and low radiation">🛡️ SAFEST</button>
+            <button class="mode-pill" data-mode="balanced" aria-pressed="false" title="Balance safety, energy expenditure, and science value">⚖️ BALANCED</button>
+            <button class="mode-pill" data-mode="science" aria-pressed="false" title="Route through high-priority CRISM mineral &amp; hydration corridors">🔬 MAX SCIENCE</button>
+            <button class="mode-pill" data-mode="fastest" aria-pressed="false" title="Minimum duration emergency traverse">⚡ FASTEST</button>
           </div>
-          <input type="range" id="rng-suit-mass" min="110" max="210" step="5" value="145" aria-label="Suit mass" />
-        </div>
 
-        <!-- Beginner simplified sliders -->
-        <div class="beginner-sliders hidden" id="beginner-sliders">
-          <div class="slider-group">
+          <div class="slider-group expert-only">
             <div class="slider-label-row">
-              <span>Maximum slope to traverse <span class="meta-hint">(safer = lower)</span></span>
-              <strong id="lbl-max-slope-b">15°</strong>
+              <span>Max Safe Slope Limit (NASA STD-3001)</span>
+              <strong id="lbl-max-slope">15°</strong>
             </div>
-            <input type="range" id="rng-max-slope-b" min="8" max="28" step="1" value="15" aria-label="Maximum slope (beginner)" />
+            <input type="range" id="rng-max-slope" min="8" max="28" step="1" value="15" aria-label="Maximum safe slope" />
           </div>
-        </div>
 
-        <div class="waypoint-box">
-          <div class="waypoint-header">
-            <span>ROUTE WAYPOINTS</span>
-            <button id="btn-reset-route" class="btn-link">Reset Default</button>
+          <div class="slider-group expert-only">
+            <div class="slider-label-row">
+              <span>Astronaut + xEMU Suit Mass (0.38g)</span>
+              <strong id="lbl-suit-mass">145 kg</strong>
+            </div>
+            <input type="range" id="rng-suit-mass" min="110" max="210" step="5" value="145" aria-label="Suit mass" />
           </div>
-          <div id="waypoint-list" class="waypoint-list"></div>
-          <div class="waypoint-hint" id="waypoint-hint-text">
-            💡 Click any marker or location on the map to add a waypoint
+
+          <!-- Beginner simplified sliders -->
+          <div class="beginner-sliders hidden" id="beginner-sliders">
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <span>Maximum slope to traverse <span class="meta-hint">(safer = lower)</span></span>
+                <strong id="lbl-max-slope-b">15°</strong>
+              </div>
+              <input type="range" id="rng-max-slope-b" min="8" max="28" step="1" value="15" aria-label="Maximum slope (beginner)" />
+            </div>
           </div>
-        </div>
-      </section>
+
+          <div class="waypoint-box">
+            <div class="waypoint-header">
+              <span>ROUTE WAYPOINTS</span>
+              <button id="btn-reset-route" class="btn-link">Reset Default</button>
+            </div>
+            <div id="waypoint-list" class="waypoint-list"></div>
+            <div class="waypoint-hint" id="waypoint-hint-text">
+              💡 Click any marker or location on the map to add a waypoint
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PANE 3: OVERLAYS -->
+      <div class="panel-tab-pane" id="pane-overlays">
+        <section class="panel-section" id="section-overlays">
+          <div class="section-header">
+            <span class="section-index">04</span>
+            <h2>CARTOGRAPHIC OVERLAYS</h2>
+          </div>
+          <div class="overlay-toggles">
+            <label class="check-row">
+              <input type="checkbox" id="chk-contours" checked />
+              <span>MOLA Topographic Contours</span>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" id="chk-hazards" checked />
+              <span>Red-Zone Slope/Boulder Hatching</span>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" id="chk-direct-path" checked />
+              <span>Compare vs. Direct Crow-Flies Path</span>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" id="chk-trek-tiles" checked />
+              <span>Blend Real Stitched Mars Trek MOLA Mosaic</span>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" id="chk-ctx-tiles" />
+              <span>Stream Live CTX 5m Mosaic (ArcGIS/Mars Trek)</span>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" id="chk-hirise-strip" />
+              <span>Overlay Real HiRISE RDR Swath (PSP_008650)</span>
+            </label>
+          </div>
+        </section>
+      </div>
     </aside>
 
     <!-- CENTER: MAP -->
@@ -794,160 +814,227 @@
     <!-- RIGHT SIDEBAR -->
     <aside class="panel panel-right" role="complementary" aria-label="Mission telemetry">
 
-      <!-- 5. TELEMETRY KPIs -->
-      <section class="panel-section">
-        <div class="section-header">
-          <span class="section-index" aria-hidden="true">05</span>
-          <h2 class="expert-label" data-expert="xEMU SUIT &amp; EVA TELEMETRY" data-beginner="MISSION VITALS">xEMU SUIT &amp; EVA TELEMETRY</h2>
-          <span class="safety-badge" id="badge-safety-score">SAFETY 91.4%</span>
-        </div>
+      <!-- RIGHT DECK NAVIGATION TABS -->
+      <nav class="deck-nav-tabs" role="tablist" aria-label="Intelligence Decks">
+        <button class="deck-tab active" data-deck="deck-vitals" role="tab" aria-selected="true" title="xEMU Suit & EVA Vitals">
+          <span class="deck-tab-icon">📊</span>
+          <span class="deck-tab-label">Vitals</span>
+        </button>
+        <button class="deck-tab" data-deck="deck-hazards" role="tab" aria-selected="false" title="Environmental Hazards & Weather">
+          <span class="deck-tab-icon">⚠️</span>
+          <span class="deck-tab-label">Hazards</span>
+        </button>
+        <button class="deck-tab" data-deck="deck-comms-hab" role="tab" aria-selected="false" title="UHF Comms & Habitat Siting">
+          <span class="deck-tab-icon">📡</span>
+          <span class="deck-tab-label">Comms/Hab</span>
+        </button>
+        <button class="deck-tab" data-deck="deck-ephem" role="tab" aria-selected="false" title="Planetary Ephemeris & In-situ Climate">
+          <span class="deck-tab-icon">🪐</span>
+          <span class="deck-tab-label">Ephemeris</span>
+        </button>
+        <button class="deck-tab" data-deck="deck-targets" role="tab" aria-selected="false" title="Field Targets & POI Manifest">
+          <span class="deck-tab-icon">📍</span>
+          <span class="deck-tab-label">Targets</span>
+        </button>
+      </nav>
 
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <span class="kpi-label expert-label" data-expert="TRAVERSE DISTANCE" data-beginner="TOTAL DISTANCE">TRAVERSE DISTANCE</span>
-            <strong class="kpi-val" id="kpi-dist">1.87 km</strong>
-            <span class="kpi-sub" id="kpi-elev-gain">+97m / -63m</span>
-          </div>
-          <div class="kpi-card">
-            <span class="kpi-label expert-label" data-expert="EST. EVA DURATION" data-beginner="ESTIMATED TIME">EST. EVA DURATION</span>
-            <strong class="kpi-val" id="kpi-time">41.9 min</strong>
-            <span class="kpi-sub" id="kpi-speed">Avg 2.68 km/h</span>
-          </div>
-          <div class="kpi-card">
-            <span class="kpi-label expert-label" data-expert="MAX SLOPE / BOULDER" data-beginner="STEEPEST SLOPE">MAX SLOPE / BOULDER</span>
-            <strong class="kpi-val" id="kpi-slope">12.0°</strong>
-            <span class="kpi-sub" id="kpi-boulder">Max 23.7% Talus</span>
-          </div>
-          <div class="kpi-card">
-            <span class="kpi-label expert-label" data-expert="CUMULATIVE RAD DOSE" data-beginner="RADIATION DOSE">CUMULATIVE RAD DOSE</span>
-            <strong class="kpi-val" id="kpi-rad">16.28 µSv</strong>
-            <span class="kpi-sub" id="kpi-comm">Min Comm: 94.9%</span>
-          </div>
-        </div>
-
-        <!-- PLSS Consumables -->
-        <div class="consumables-box">
-          <div class="consumable-row">
-            <div class="cons-header">
-              <span class="expert-label" data-expert="PLSS Primary O₂ Tank (580L Cap)" data-beginner="Oxygen Supply (580L Tank)">PLSS Primary O₂ Tank (580L Cap)</span>
-              <strong id="cons-o2-text">29.5 L (5.1%)</strong>
-            </div>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar-o2-track">
-              <div class="progress-fill fill-o2" id="bar-o2" style="width: 12%"></div>
-            </div>
-          </div>
-          <div class="consumable-row">
-            <div class="cons-header">
-              <span class="expert-label" data-expert="xEMU Suit Battery (1850 Wh Cap)" data-beginner="Suit Battery (1850 Wh)">xEMU Suit Battery (1850 Wh Cap)</span>
-              <strong id="cons-bat-text">136 Wh (7.4%)</strong>
-            </div>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar-bat-track">
-              <div class="progress-fill fill-bat" id="bar-bat" style="width: 15%"></div>
-            </div>
-          </div>
-          <div class="consumable-row">
-            <div class="cons-header">
-              <span class="expert-label" data-expert="Astronaut Metabolic Burn (Pandolf 0.38g)" data-beginner="Energy Burned">Astronaut Metabolic Burn (Pandolf 0.38g)</span>
-              <strong id="cons-kcal-text">142 kcal</strong>
-            </div>
-            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar-kcal-track">
-              <div class="progress-fill fill-kcal" id="bar-kcal" style="width: 18%"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="comparison-callout" id="comparison-callout">
-          <div class="comp-title">⚡ A* AI PATHFINDER VS. DIRECT LINE</div>
-          <div class="comp-body" id="comp-body-text">
-            Reduces cumulative slope &amp; boulder hazard exposure by <strong>41.3%</strong> while avoiding <strong>74.4% talus traps</strong>.
-          </div>
-        </div>
-
-        <!-- P1.3 Multi-Hazard Environmental Risk Breakdown -->
-        <div class="hazard-breakdown-card" id="hazard-breakdown-card">
-          <div class="hb-header">
-            <span class="hb-title">⚠️ MULTI-HAZARD RISK BREAKDOWN</span>
-            <span class="hb-driver-badge" id="hb-driver-badge">PRIMARY: NOMINAL</span>
+      <!-- DECK 1: VITALS & KPIs -->
+      <div class="deck-pane active" id="deck-vitals">
+        <section class="panel-section" id="sec-vitals">
+          <div class="section-header">
+            <span class="section-index" aria-hidden="true">05</span>
+            <h2 class="expert-label" data-expert="xEMU SUIT &amp; EVA TELEMETRY" data-beginner="MISSION VITALS">xEMU SUIT &amp; EVA TELEMETRY</h2>
+            <span class="safety-badge" id="badge-safety-score">SAFETY 91.4%</span>
           </div>
 
-          <div class="hb-meter-row">
-            <span class="hb-meter-label">Composite Risk Index</span>
-            <strong class="hb-meter-val" id="hb-composite-val">--%</strong>
-          </div>
-          <div class="progress-track" role="progressbar" aria-label="Composite Risk">
-            <div class="progress-fill fill-hb-composite" id="hb-composite-bar" style="width: 0%"></div>
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-label expert-label" data-expert="TRAVERSE DISTANCE" data-beginner="TOTAL DISTANCE">TRAVERSE DISTANCE</span>
+              <strong class="kpi-val" id="kpi-dist">1.87 km</strong>
+              <span class="kpi-sub" id="kpi-elev-gain">+97m / -63m</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label expert-label" data-expert="EST. EVA DURATION" data-beginner="ESTIMATED TIME">EST. EVA DURATION</span>
+              <strong class="kpi-val" id="kpi-time">41.9 min</strong>
+              <span class="kpi-sub" id="kpi-speed">Avg 2.68 km/h</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label expert-label" data-expert="MAX SLOPE / BOULDER" data-beginner="STEEPEST SLOPE">MAX SLOPE / BOULDER</span>
+              <strong class="kpi-val" id="kpi-slope">12.0°</strong>
+              <span class="kpi-sub" id="kpi-boulder">Max 23.7% Talus</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label expert-label" data-expert="CUMULATIVE RAD DOSE" data-beginner="RADIATION DOSE">CUMULATIVE RAD DOSE</span>
+              <strong class="kpi-val" id="kpi-rad">16.28 µSv</strong>
+              <span class="kpi-sub" id="kpi-comm">Min Comm: 94.9%</span>
+            </div>
           </div>
 
-          <div class="hb-grid">
-            <div class="hb-item">
-              <div class="hb-item-head">
-                <span>🧗 Terrain Slope (35%)</span>
-                <strong id="hb-val-slope">0%</strong>
+          <!-- PLSS Consumables -->
+          <div class="consumables-box">
+            <div class="consumable-row">
+              <div class="cons-header">
+                <span class="expert-label" data-expert="PLSS Primary O₂ Tank (580L Cap)" data-beginner="Oxygen Supply (580L Tank)">PLSS Primary O₂ Tank (580L Cap)</span>
+                <strong id="cons-o2-text">29.5 L (5.1%)</strong>
               </div>
-              <div class="hb-track"><div class="hb-fill hb-fill-slope" id="hb-bar-slope" style="width: 0%"></div></div>
-            </div>
-            <div class="hb-item">
-              <div class="hb-item-head">
-                <span>🪨 Boulder Cover (25%)</span>
-                <strong id="hb-val-boulder">0%</strong>
+              <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar-o2-track">
+                <div class="progress-fill fill-o2" id="bar-o2" style="width: 12%"></div>
               </div>
-              <div class="hb-track"><div class="hb-fill hb-fill-boulder" id="hb-bar-boulder" style="width: 0%"></div></div>
             </div>
-            <div class="hb-item">
-              <div class="hb-item-head">
-                <span>☢️ Radiation Flux (20%)</span>
-                <strong id="hb-val-rad">0%</strong>
+            <div class="consumable-row">
+              <div class="cons-header">
+                <span class="expert-label" data-expert="xEMU Suit Battery (1850 Wh Cap)" data-beginner="Suit Battery (1850 Wh)">xEMU Suit Battery (1850 Wh Cap)</span>
+                <strong id="cons-bat-text">136 Wh (7.4%)</strong>
               </div>
-              <div class="hb-track"><div class="hb-fill hb-fill-rad" id="hb-bar-rad" style="width: 0%"></div></div>
-            </div>
-            <div class="hb-item">
-              <div class="hb-item-head">
-                <span>📡 Comms Shadow (20%)</span>
-                <strong id="hb-val-comm">0%</strong>
+              <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar-bat-track">
+                <div class="progress-fill fill-bat" id="bar-bat" style="width: 15%"></div>
               </div>
-              <div class="hb-track"><div class="hb-fill hb-fill-comm" id="hb-bar-comm" style="width: 0%"></div></div>
+            </div>
+            <div class="consumable-row">
+              <div class="cons-header">
+                <span class="expert-label" data-expert="Astronaut Metabolic Burn (Pandolf 0.38g)" data-beginner="Energy Burned">Astronaut Metabolic Burn (Pandolf 0.38g)</span>
+                <strong id="cons-kcal-text">142 kcal</strong>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar-kcal-track">
+                <div class="progress-fill fill-kcal" id="bar-kcal" style="width: 18%"></div>
+              </div>
             </div>
           </div>
 
-          <div class="hb-advisory" id="hb-advisory">
-            <span class="hb-advisory-icon">ℹ️</span>
-            <span class="hb-advisory-text" id="hb-advisory-text">Plan a traverse or inspect sector hazards to view environmental risk advisory.</span>
+          <div class="comparison-callout" id="comparison-callout">
+            <div class="comp-title">⚡ A* AI PATHFINDER VS. DIRECT LINE</div>
+            <div class="comp-body" id="comp-body-text">
+              Reduces cumulative slope &amp; boulder hazard exposure by <strong>41.3%</strong> while avoiding <strong>74.4% talus traps</strong>.
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- DECK 2: HAZARDS & WEATHER -->
+      <div class="deck-pane" id="deck-hazards">
+        <section class="panel-section" id="sec-hazards">
+          <div class="section-header">
+            <span class="section-index">05.A</span>
+            <h2>ENVIRONMENTAL RISK &amp; WEATHER</h2>
           </div>
 
-          <div class="hb-provenance">
-            <span>Data Provenance:</span>
-            <span class="prov-badge prov-calculated">Calculated Composite</span>
-            <span class="hb-prov-detail">MOLA (±1m) · HiRISE (0.25m) · MSL RAD (26.7µSv/h) · 3D Ray-March</span>
-          </div>
-        </div>
-      </section>
+          <!-- P1.3 Multi-Hazard Environmental Risk Breakdown -->
+          <div class="hazard-breakdown-card" id="hazard-breakdown-card">
+            <div class="hb-header">
+              <span class="hb-title">⚠️ MULTI-HAZARD RISK BREAKDOWN</span>
+              <span class="hb-driver-badge" id="hb-driver-badge">PRIMARY: NOMINAL</span>
+            </div>
 
-      <!-- 6. POI INSPECTOR -->
-      <section class="panel-section">
-        <div class="section-header">
-          <span class="section-index" aria-hidden="true">06</span>
-          <h2 class="expert-label" data-expert="FIELD TARGET DOSSIER" data-beginner="LOCATION DETAILS">FIELD TARGET DOSSIER</h2>
-        </div>
-        <div id="poi-inspector" class="poi-inspector">
-          <div class="poi-desc">Select any marker on the map to inspect its details.</div>
-        </div>
-      </section>
+            <div class="hb-meter-row">
+              <span class="hb-meter-label">Composite Risk Index</span>
+              <strong class="hb-meter-val" id="hb-composite-val">--%</strong>
+            </div>
+            <div class="progress-track" role="progressbar" aria-label="Composite Risk">
+              <div class="progress-fill fill-hb-composite" id="hb-composite-bar" style="width: 0%"></div>
+            </div>
 
-      <!-- 7. TARGET MANIFEST -->
-      <section class="panel-section">
-        <div class="section-header">
-          <span class="section-index" aria-hidden="true">07</span>
-          <h2 class="expert-label" data-expert="SECTOR TARGET MANIFEST" data-beginner="EXPLORATION TARGETS">SECTOR TARGET MANIFEST</h2>
-          <div class="manifest-filter" id="manifest-filter">
-            <button class="mf-btn active" data-filter="all">All</button>
-            <button class="mf-btn" data-filter="science">Science</button>
-            <button class="mf-btn" data-filter="isru">Resources</button>
-            <button class="mf-btn" data-filter="shelter">Shelter</button>
-            <button class="mf-btn" data-filter="hazard">Hazards</button>
+            <div class="hb-grid">
+              <div class="hb-item">
+                <div class="hb-item-head">
+                  <span>🧗 Terrain Slope (35%)</span>
+                  <strong id="hb-val-slope">0%</strong>
+                </div>
+                <div class="hb-track"><div class="hb-fill hb-fill-slope" id="hb-bar-slope" style="width: 0%"></div></div>
+              </div>
+              <div class="hb-item">
+                <div class="hb-item-head">
+                  <span>🪨 Boulder Cover (25%)</span>
+                  <strong id="hb-val-boulder">0%</strong>
+                </div>
+                <div class="hb-track"><div class="hb-fill hb-fill-boulder" id="hb-bar-boulder" style="width: 0%"></div></div>
+              </div>
+              <div class="hb-item">
+                <div class="hb-item-head">
+                  <span>☢️ Radiation Flux (20%)</span>
+                  <strong id="hb-val-rad">0%</strong>
+                </div>
+                <div class="hb-track"><div class="hb-fill hb-fill-rad" id="hb-bar-rad" style="width: 0%"></div></div>
+              </div>
+              <div class="hb-item">
+                <div class="hb-item-head">
+                  <span>📡 Comms Shadow (20%)</span>
+                  <strong id="hb-val-comm">0%</strong>
+                </div>
+                <div class="hb-track"><div class="hb-fill hb-fill-comm" id="hb-bar-comm" style="width: 0%"></div></div>
+              </div>
+            </div>
+
+            <div class="hb-advisory" id="hb-advisory">
+              <span class="hb-advisory-icon">ℹ️</span>
+              <span class="hb-advisory-text" id="hb-advisory-text">Plan a traverse or inspect sector hazards to view environmental risk advisory.</span>
+            </div>
+
+            <div class="hb-provenance">
+              <span>Data Provenance:</span>
+              <span class="prov-badge prov-calculated">Calculated Composite</span>
+              <span class="hb-prov-detail">MOLA (±1m) · HiRISE (0.25m) · MSL RAD (26.7µSv/h) · 3D Ray-March</span>
+            </div>
           </div>
-        </div>
-        <div id="poi-directory" class="poi-directory"></div>
-      </section>
+
+          <!-- Dynamic slot for Atmospheric & Drone card -->
+          <div id="deck-hazards-slot" style="margin-top:8px;"></div>
+        </section>
+      </div>
+
+      <!-- DECK 3: COMMS & HABITAT SITING -->
+      <div class="deck-pane" id="deck-comms-hab">
+        <section class="panel-section" id="sec-comms-hab">
+          <div class="section-header">
+            <span class="section-index">05.B</span>
+            <h2>INFRASTRUCTURE &amp; SITING</h2>
+          </div>
+          <!-- Dynamic slots for Comm Topology & Habitat cards -->
+          <div id="deck-comms-slot"></div>
+          <div id="deck-habitat-slot" style="margin-top:8px;"></div>
+        </section>
+      </div>
+
+      <!-- DECK 4: EPHEMERIS & CLIMATE FOUNDATION -->
+      <div class="deck-pane" id="deck-ephem">
+        <section class="panel-section" id="sec-ephem">
+          <div class="section-header">
+            <span class="section-index">05.C</span>
+            <h2>PLANETARY EPHEMERIS &amp; ARCHIVES</h2>
+          </div>
+          <!-- Dynamic slot for Ephemeris card -->
+          <div id="deck-ephem-slot"></div>
+        </section>
+      </div>
+
+      <!-- DECK 5: TARGETS & POI MANIFEST -->
+      <div class="deck-pane" id="deck-targets">
+        <!-- 6. POI INSPECTOR -->
+        <section class="panel-section" id="sec-poi">
+          <div class="section-header">
+            <span class="section-index" aria-hidden="true">06</span>
+            <h2 class="expert-label" data-expert="FIELD TARGET DOSSIER" data-beginner="LOCATION DETAILS">FIELD TARGET DOSSIER</h2>
+          </div>
+          <div id="poi-inspector" class="poi-inspector">
+            <div class="poi-desc">Select any marker on the map to inspect its details.</div>
+          </div>
+        </section>
+
+        <!-- 7. TARGET MANIFEST -->
+        <section class="panel-section" id="sec-manifest">
+          <div class="section-header">
+            <span class="section-index" aria-hidden="true">07</span>
+            <h2 class="expert-label" data-expert="SECTOR TARGET MANIFEST" data-beginner="EXPLORATION TARGETS">SECTOR TARGET MANIFEST</h2>
+            <div class="manifest-filter" id="manifest-filter">
+              <button class="mf-btn active" data-filter="all">All</button>
+              <button class="mf-btn" data-filter="science">Science</button>
+              <button class="mf-btn" data-filter="isru">Resources</button>
+              <button class="mf-btn" data-filter="shelter">Shelter</button>
+              <button class="mf-btn" data-filter="hazard">Hazards</button>
+            </div>
+          </div>
+          <div id="poi-directory" class="poi-directory"></div>
+        </section>
+      </div>
     </aside>
   </main>
 
@@ -1009,6 +1096,7 @@
   <script src="modules/p1_comm_topology.js"></script>
   <script src="modules/p2_ephemeris.js"></script>
   <script src="modules/p2_habitat.js"></script>
+  <script src="modules/ui_deck_organizer.js"></script>
   <script src="modules/p0_init.js"></script>
 </body>
 </html>

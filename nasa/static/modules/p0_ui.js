@@ -37,9 +37,9 @@ p0State.manifestFilter = p0State.manifestFilter || "all";
         display: flex;
         align-items: center;
         gap: 6px;
-        background: rgba(13, 19, 29, 0.85);
+        background: rgba(65, 67, 59, 0.28);
         padding: 3px 6px;
-        border: 1px solid rgba(255, 120, 70, 0.28);
+        border: 1px solid var(--border-subtle, #41433B);
         border-radius: 6px;
       }
       .mode-toggle-label {
@@ -47,7 +47,7 @@ p0State.manifestFilter = p0State.manifestFilter || "all";
         font-size: 9.5px;
         font-weight: 800;
         letter-spacing: 0.8px;
-        color: var(--mars-amber, #ffab2e);
+        color: var(--accent-lime, #BAEB5B);
       }
       .mode-toggle {
         display: flex;
@@ -55,7 +55,7 @@ p0State.manifestFilter = p0State.manifestFilter || "all";
       }
       .mode-toggle-btn {
         background: transparent;
-        color: var(--text-muted, #8b9bb4);
+        color: var(--text-muted, #a7ab9e);
         border: 1px solid transparent;
         padding: 4px 9px;
         border-radius: 4px;
@@ -66,21 +66,22 @@ p0State.manifestFilter = p0State.manifestFilter || "all";
         line-height: 1.2;
       }
       .mode-toggle-btn:hover {
-        color: #fff;
-        background: rgba(255, 255, 255, 0.08);
+        color: #F1F2EF;
+        background: rgba(65, 67, 59, 0.45);
       }
       .mode-toggle-btn.active {
-        background: linear-gradient(135deg, rgba(255, 94, 43, 0.25), rgba(255, 171, 46, 0.18));
-        color: #ffffff;
-        border-color: var(--mars-orange, #ff5e2b);
-        box-shadow: 0 0 10px rgba(255, 94, 43, 0.35);
+        background: var(--accent-lime, #BAEB5B);
+        color: #0F1604;
+        font-weight: 800;
+        border-color: var(--accent-lime, #BAEB5B);
+        box-shadow: 0 0 10px rgba(186, 235, 91, 0.35);
       }
 
       /* Section Help Tooltip Trigger Button */
       .section-help-btn {
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        color: var(--text-muted, #8b9bb4);
+        background: rgba(65, 67, 59, 0.35);
+        border: 1px solid var(--slate-olive, #41433B);
+        color: var(--text-muted, #a7ab9e);
         width: 17px;
         height: 17px;
         border-radius: 50%;
@@ -98,27 +99,27 @@ p0State.manifestFilter = p0State.manifestFilter || "all";
       }
       .section-help-btn:hover,
       .section-help-btn.active {
-        background: rgba(39, 215, 255, 0.22);
-        color: #ffffff;
-        border-color: var(--cyan-hud, #27d7ff);
-        box-shadow: 0 0 8px rgba(39, 215, 255, 0.4);
+        background: var(--accent-lime, #BAEB5B);
+        color: #0F1604;
+        border-color: var(--accent-lime, #BAEB5B);
+        box-shadow: 0 0 8px rgba(186, 235, 91, 0.4);
       }
 
       /* Global Contextual Help Tooltip */
       .global-tooltip {
         position: fixed;
         z-index: 10000;
-        background: rgba(10, 15, 24, 0.96);
+        background: rgba(15, 22, 4, 0.96);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
-        border: 1px solid var(--cyan-hud, #27d7ff);
+        border: 1px solid var(--accent-lime, #BAEB5B);
         border-radius: 6px;
         padding: 9px 12px;
-        color: #edf2f8;
+        color: #F1F2EF;
         font-size: 11px;
         line-height: 1.45;
         max-width: 280px;
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8), 0 0 14px rgba(39, 215, 255, 0.25);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8), 0 0 14px rgba(186, 235, 91, 0.25);
         pointer-events: auto;
         transition: opacity 0.15s ease, transform 0.15s ease;
       }
@@ -133,26 +134,26 @@ p0State.manifestFilter = p0State.manifestFilter || "all";
         gap: 6px;
       }
       .blp-btn {
-        background: #0d131d;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(65, 67, 59, 0.22);
+        border: 1px solid var(--slate-olive, #41433B);
         border-radius: 6px;
         padding: 7px 8px;
         text-align: left;
         cursor: pointer;
-        color: var(--text-main, #edf2f8);
+        color: var(--text-main, #F1F2EF);
         display: flex;
         flex-direction: column;
         gap: 2px;
         transition: all 0.15s ease;
       }
       .blp-btn:hover {
-        background: var(--bg-card-hover, #192436);
-        border-color: rgba(39, 215, 255, 0.35);
+        background: rgba(65, 67, 59, 0.45);
+        border-color: var(--accent-lime, #BAEB5B);
       }
       .blp-btn.active {
-        background: rgba(255, 94, 43, 0.14);
-        border-color: var(--mars-orange, #ff5e2b);
-        box-shadow: inset 2px 0 0 var(--mars-orange, #ff5e2b);
+        background: rgba(186, 235, 91, 0.16);
+        border-color: var(--accent-lime, #BAEB5B);
+        box-shadow: inset 3px 0 0 var(--accent-lime, #BAEB5B);
       }
       .blp-icon {
         font-size: 14px;
@@ -162,11 +163,11 @@ p0State.manifestFilter = p0State.manifestFilter || "all";
       .blp-btn strong {
         font-size: 11px;
         font-weight: 700;
-        color: #fff;
+        color: var(--text-main, #F1F2EF);
       }
       .blp-btn span {
         font-size: 9.5px;
-        color: var(--text-muted, #8b9bb4);
+        color: var(--text-muted, #a7ab9e);
       }
 
       /* Beginner Mode Simplified Route Mode Selector */
@@ -175,7 +176,7 @@ p0State.manifestFilter = p0State.manifestFilter || "all";
       }
       .beginner-hint {
         font-size: 10px;
-        color: var(--text-muted, #8b9bb4);
+        color: var(--text-muted, #a7ab9e);
         margin-bottom: 6px;
         font-weight: 500;
       }
@@ -185,26 +186,27 @@ p0State.manifestFilter = p0State.manifestFilter || "all";
         gap: 6px;
       }
       .brm-btn {
-        background: #0d131d;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(65, 67, 59, 0.22);
+        border: 1px solid var(--slate-olive, #41433B);
         border-radius: 6px;
         padding: 7px 8px;
         text-align: left;
         cursor: pointer;
-        color: var(--text-main, #edf2f8);
+        color: var(--text-main, #F1F2EF);
         display: flex;
         flex-direction: column;
         gap: 2px;
         transition: all 0.15s ease;
       }
       .brm-btn:hover {
-        background: var(--bg-card-hover, #192436);
-        border-color: rgba(24, 226, 153, 0.35);
+        background: rgba(65, 67, 59, 0.45);
+        border-color: var(--accent-lime, #BAEB5B);
       }
       .brm-btn.active {
-        background: rgba(24, 226, 153, 0.14);
-        color: var(--emerald-safe, #18e299);
-        border-color: var(--emerald-safe, #18e299);
+        background: var(--accent-lime, #BAEB5B);
+        color: #0F1604;
+        font-weight: 800;
+        border-color: var(--accent-lime, #BAEB5B);
       }
       .brm-btn span {
         font-size: 13px;
@@ -217,11 +219,11 @@ p0State.manifestFilter = p0State.manifestFilter || "all";
       }
       .brm-btn small {
         font-size: 9px;
-        color: var(--text-muted, #8b9bb4);
+        color: inherit;
         line-height: 1.3;
       }
       .brm-btn.active small {
-        color: #c9f5e3;
+        color: #0F1604;
       }
 
       /* Beginner Mode Sliders */
@@ -231,8 +233,8 @@ p0State.manifestFilter = p0State.manifestFilter || "all";
 
       /* Beginner Mode Site Context Card */
       .beginner-site-card {
-        background: #0a0f17;
-        border: 1px solid rgba(39, 215, 255, 0.22);
+        background: var(--bg-deep, #0F1604);
+        border: 1px solid var(--slate-olive, #41433B);
         border-radius: 6px;
         padding: 8px 10px;
         margin-top: 8px;
